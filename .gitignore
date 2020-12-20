@@ -1,2 +1,4 @@
 /.idea/
-/bin/
+/bin/echoExample
+/bin/echoClient.o
+/bin/connectionHandler.o
