@@ -143,6 +143,73 @@ Client/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
 .PHONY : Client/fast
 
+#=============================================================================
+# Target rules for targets named EchoClient
+
+# Build rule for target.
+EchoClient: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 EchoClient
+.PHONY : EchoClient
+
+# fast build rule for target.
+EchoClient/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/build
+.PHONY : EchoClient/fast
+
+src/connectionHandler.o: src/connectionHandler.cpp.o
+
+.PHONY : src/connectionHandler.o
+
+# target to build an object file
+src/connectionHandler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/connectionHandler.cpp.o
+.PHONY : src/connectionHandler.cpp.o
+
+src/connectionHandler.i: src/connectionHandler.cpp.i
+
+.PHONY : src/connectionHandler.i
+
+# target to preprocess a source file
+src/connectionHandler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/connectionHandler.cpp.i
+.PHONY : src/connectionHandler.cpp.i
+
+src/connectionHandler.s: src/connectionHandler.cpp.s
+
+.PHONY : src/connectionHandler.s
+
+# target to generate assembly for a file
+src/connectionHandler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/connectionHandler.cpp.s
+.PHONY : src/connectionHandler.cpp.s
+
+src/echoClient.o: src/echoClient.cpp.o
+
+.PHONY : src/echoClient.o
+
+# target to build an object file
+src/echoClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/echoClient.cpp.o
+.PHONY : src/echoClient.cpp.o
+
+src/echoClient.i: src/echoClient.cpp.i
+
+.PHONY : src/echoClient.i
+
+# target to preprocess a source file
+src/echoClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/echoClient.cpp.i
+.PHONY : src/echoClient.cpp.i
+
+src/echoClient.s: src/echoClient.cpp.s
+
+.PHONY : src/echoClient.s
+
+# target to generate assembly for a file
+src/echoClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/echoClient.cpp.s
+.PHONY : src/echoClient.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -179,6 +246,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Client"
+	@echo "... EchoClient"
+	@echo "... src/connectionHandler.o"
+	@echo "... src/connectionHandler.i"
+	@echo "... src/connectionHandler.s"
+	@echo "... src/echoClient.o"
+	@echo "... src/echoClient.i"
+	@echo "... src/echoClient.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

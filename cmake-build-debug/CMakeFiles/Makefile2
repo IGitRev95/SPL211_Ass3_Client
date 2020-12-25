@@ -74,6 +74,7 @@ CMAKE_BINARY_DIR = /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug
 
 # The main recursive "all" target.
 all: CMakeFiles/Client.dir/all
+all: CMakeFiles/EchoClient.dir/all
 
 .PHONY : all
 
@@ -84,6 +85,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/Client.dir/clean
+clean: CMakeFiles/EchoClient.dir/clean
 
 .PHONY : clean
 
@@ -113,6 +115,33 @@ Client: CMakeFiles/Client.dir/rule
 CMakeFiles/Client.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/clean
 .PHONY : CMakeFiles/Client.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/EchoClient.dir
+
+# All Build rule for target.
+CMakeFiles/EchoClient.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles --progress-num=3,4,5 "Built target EchoClient"
+.PHONY : CMakeFiles/EchoClient.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/EchoClient.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/EchoClient.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/EchoClient.dir/rule
+
+# Convenience name for target.
+EchoClient: CMakeFiles/EchoClient.dir/rule
+
+.PHONY : EchoClient
+
+# clean rule for target.
+CMakeFiles/EchoClient.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/clean
+.PHONY : CMakeFiles/EchoClient.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
