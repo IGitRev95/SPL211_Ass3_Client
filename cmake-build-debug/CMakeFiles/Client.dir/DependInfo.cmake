@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/BGRegClient.cpp" "/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles/Client.dir/src/BGRegClient.cpp.o"
   "/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/main.cpp" "/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles/Client.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

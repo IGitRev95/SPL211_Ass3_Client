@@ -73,7 +73,7 @@ CMAKE_BINARY_DIR = /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Client.dir/all
+all: CMakeFiles/BGRSclient.dir/all
 all: CMakeFiles/EchoClient.dir/all
 
 .PHONY : all
@@ -84,37 +84,37 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Client.dir/clean
+clean: CMakeFiles/BGRSclient.dir/clean
 clean: CMakeFiles/EchoClient.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Client.dir
+# Target rules for target CMakeFiles/BGRSclient.dir
 
 # All Build rule for target.
-CMakeFiles/Client.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Client"
-.PHONY : CMakeFiles/Client.dir/all
+CMakeFiles/BGRSclient.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target BGRSclient"
+.PHONY : CMakeFiles/BGRSclient.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Client.dir/all
+CMakeFiles/BGRSclient.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/BGRSclient.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/Client.dir/rule
+.PHONY : CMakeFiles/BGRSclient.dir/rule
 
 # Convenience name for target.
-Client: CMakeFiles/Client.dir/rule
+BGRSclient: CMakeFiles/BGRSclient.dir/rule
 
-.PHONY : Client
+.PHONY : BGRSclient
 
 # clean rule for target.
-CMakeFiles/Client.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/clean
-.PHONY : CMakeFiles/Client.dir/clean
+CMakeFiles/BGRSclient.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/clean
+.PHONY : CMakeFiles/BGRSclient.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/EchoClient.dir
@@ -123,7 +123,7 @@ CMakeFiles/Client.dir/clean:
 CMakeFiles/EchoClient.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles --progress-num=3,4,5 "Built target EchoClient"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles --progress-num=6,7,8 "Built target EchoClient"
 .PHONY : CMakeFiles/EchoClient.dir/all
 
 # Build rule for subdir invocation for target.

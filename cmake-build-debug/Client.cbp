@@ -37,8 +37,8 @@
 					<DistClean command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Client">
-				<Option output="/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Client" prefix_auto="0" extension_auto="0"/>
+			<Target title="BGRSclient">
+				<Option output="/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/BGRSclient" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -54,14 +54,14 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 BGRSclient"/>
 					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Client/fast">
-				<Option output="/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Client" prefix_auto="0" extension_auto="0"/>
+			<Target title="BGRSclient/fast">
+				<Option output="/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/BGRSclient" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -77,7 +77,7 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client/fast"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 BGRSclient/fast"/>
 					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j2 -f &quot;/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -130,17 +130,34 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/include/BGRegClient.h">
+			<Option target="BGRSclient"/>
+		</Unit>
+		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/include/Task.h">
+			<Option target="BGRSclient"/>
+		</Unit>
+		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/include/UserInputReader.h">
+			<Option target="BGRSclient"/>
+		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/include/connectionHandler.h">
+			<Option target="BGRSclient"/>
 			<Option target="EchoClient"/>
 		</Unit>
+		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/BGRegClient.cpp">
+			<Option target="BGRSclient"/>
+		</Unit>
+		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/Task.cpp">
+			<Option target="BGRSclient"/>
+		</Unit>
+		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/UserInputReader.cpp">
+			<Option target="BGRSclient"/>
+		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/connectionHandler.cpp">
+			<Option target="BGRSclient"/>
 			<Option target="EchoClient"/>
 		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/echoClient.cpp">
 			<Option target="EchoClient"/>
-		</Unit>
-		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/main.cpp">
-			<Option target="Client"/>
 		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

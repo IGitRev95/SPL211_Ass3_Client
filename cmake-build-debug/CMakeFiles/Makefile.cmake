@@ -22,6 +22,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/CMakeLanguageInformation.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/CMakeSystemSpecificInformation.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/CMakeSystemSpecificInitialize.cmake"
+  "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/CheckCSourceCompiles.cmake"
+  "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/CheckIncludeFile.cmake"
+  "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/CheckLibraryExists.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/GNU-C.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/GNU-CXX.cmake"
@@ -29,6 +32,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/FindBoost.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/FindPackageHandleStandardArgs.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/FindPackageMessage.cmake"
+  "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/FindThreads.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/Internal/CMakeCheckCompilerFlag.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/Platform/Linux-GNU-C.cmake"
   "/snap/clion/137/bin/cmake/linux/share/cmake-3.17/Modules/Platform/Linux-GNU-CXX.cmake"
@@ -51,6 +55,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/Client.dir/DependInfo.cmake"
+  "CMakeFiles/BGRSclient.dir/DependInfo.cmake"
   "CMakeFiles/EchoClient.dir/DependInfo.cmake"
   )

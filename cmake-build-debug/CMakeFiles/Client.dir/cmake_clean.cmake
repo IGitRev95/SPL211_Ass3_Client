@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Client.dir/src/BGRegClient.cpp.o"
   "CMakeFiles/Client.dir/src/main.cpp.o"
   "Client"
   "Client.pdb"

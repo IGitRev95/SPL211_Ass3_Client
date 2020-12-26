@@ -1,4 +1,4 @@
 /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles/Client.dir
+/home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles/BGRSclient.dir
 /home/spl211/SPL-Ass/Ass3/CLNT/Client/cmake-build-debug/CMakeFiles/EchoClient.dir

@@ -131,17 +131,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Client
+# Target rules for targets named BGRSclient
 
 # Build rule for target.
-Client: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Client
-.PHONY : Client
+BGRSclient: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 BGRSclient
+.PHONY : BGRSclient
 
 # fast build rule for target.
-Client/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
-.PHONY : Client/fast
+BGRSclient/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/build
+.PHONY : BGRSclient/fast
 
 #=============================================================================
 # Target rules for targets named EchoClient
@@ -156,12 +156,94 @@ EchoClient/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/build
 .PHONY : EchoClient/fast
 
+src/BGRegClient.o: src/BGRegClient.cpp.o
+
+.PHONY : src/BGRegClient.o
+
+# target to build an object file
+src/BGRegClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/BGRegClient.cpp.o
+.PHONY : src/BGRegClient.cpp.o
+
+src/BGRegClient.i: src/BGRegClient.cpp.i
+
+.PHONY : src/BGRegClient.i
+
+# target to preprocess a source file
+src/BGRegClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/BGRegClient.cpp.i
+.PHONY : src/BGRegClient.cpp.i
+
+src/BGRegClient.s: src/BGRegClient.cpp.s
+
+.PHONY : src/BGRegClient.s
+
+# target to generate assembly for a file
+src/BGRegClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/BGRegClient.cpp.s
+.PHONY : src/BGRegClient.cpp.s
+
+src/Task.o: src/Task.cpp.o
+
+.PHONY : src/Task.o
+
+# target to build an object file
+src/Task.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/Task.cpp.o
+.PHONY : src/Task.cpp.o
+
+src/Task.i: src/Task.cpp.i
+
+.PHONY : src/Task.i
+
+# target to preprocess a source file
+src/Task.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/Task.cpp.i
+.PHONY : src/Task.cpp.i
+
+src/Task.s: src/Task.cpp.s
+
+.PHONY : src/Task.s
+
+# target to generate assembly for a file
+src/Task.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/Task.cpp.s
+.PHONY : src/Task.cpp.s
+
+src/UserInputReader.o: src/UserInputReader.cpp.o
+
+.PHONY : src/UserInputReader.o
+
+# target to build an object file
+src/UserInputReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/UserInputReader.cpp.o
+.PHONY : src/UserInputReader.cpp.o
+
+src/UserInputReader.i: src/UserInputReader.cpp.i
+
+.PHONY : src/UserInputReader.i
+
+# target to preprocess a source file
+src/UserInputReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/UserInputReader.cpp.i
+.PHONY : src/UserInputReader.cpp.i
+
+src/UserInputReader.s: src/UserInputReader.cpp.s
+
+.PHONY : src/UserInputReader.s
+
+# target to generate assembly for a file
+src/UserInputReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/UserInputReader.cpp.s
+.PHONY : src/UserInputReader.cpp.s
+
 src/connectionHandler.o: src/connectionHandler.cpp.o
 
 .PHONY : src/connectionHandler.o
 
 # target to build an object file
 src/connectionHandler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/connectionHandler.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/connectionHandler.cpp.o
 .PHONY : src/connectionHandler.cpp.o
 
@@ -171,6 +253,7 @@ src/connectionHandler.i: src/connectionHandler.cpp.i
 
 # target to preprocess a source file
 src/connectionHandler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/connectionHandler.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/connectionHandler.cpp.i
 .PHONY : src/connectionHandler.cpp.i
 
@@ -180,6 +263,7 @@ src/connectionHandler.s: src/connectionHandler.cpp.s
 
 # target to generate assembly for a file
 src/connectionHandler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/connectionHandler.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/connectionHandler.cpp.s
 .PHONY : src/connectionHandler.cpp.s
 
@@ -210,33 +294,6 @@ src/echoClient.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/src/echoClient.cpp.s
 .PHONY : src/echoClient.cpp.s
 
-src/main.o: src/main.cpp.o
-
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -245,17 +302,23 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Client"
+	@echo "... BGRSclient"
 	@echo "... EchoClient"
+	@echo "... src/BGRegClient.o"
+	@echo "... src/BGRegClient.i"
+	@echo "... src/BGRegClient.s"
+	@echo "... src/Task.o"
+	@echo "... src/Task.i"
+	@echo "... src/Task.s"
+	@echo "... src/UserInputReader.o"
+	@echo "... src/UserInputReader.i"
+	@echo "... src/UserInputReader.s"
 	@echo "... src/connectionHandler.o"
 	@echo "... src/connectionHandler.i"
 	@echo "... src/connectionHandler.s"
 	@echo "... src/echoClient.o"
 	@echo "... src/echoClient.i"
 	@echo "... src/echoClient.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
 .PHONY : help
 
 

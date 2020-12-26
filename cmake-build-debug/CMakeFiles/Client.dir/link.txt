@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/Client.dir/src/main.cpp.o  -o Client 
+/usr/bin/c++  -g   CMakeFiles/Client.dir/src/main.cpp.o CMakeFiles/Client.dir/src/BGRegClient.cpp.o  -o Client 
