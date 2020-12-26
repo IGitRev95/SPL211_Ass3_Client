@@ -8,5 +8,20 @@ UserInputReader::UserInputReader(ConnectionHandler &clientConnectionHandler) : c
         clientConnectionHandler) {}
 
 int UserInputReader::run() {
+    while (1)// TODO:check for terminate / interrupt configuration & solution
+    {
+        const short bufsize = 1024;
+        char buf[bufsize]; //creating char array that will hold the keyboard input stream of chars
+        std::cin.getline(buf, bufsize); // (cin included therefore blocking on keyboard) reading an entire line of input stream of chars and stored it in the buf char array
+        std::string line(buf); //creating String obj from char array
+        int len=line.length();
+        // TODO: Encode User command to a legal message/command type by assignment definitions
+        if (!clientConnectionHandler.sendLine(line)) { //passing string to send to server to the connectionHandler for sending
+            std::cout << "Disconnected. Exiting...\n" << std::endl;
+            break;
+        }
+        // connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
+        std::cout << "Sent " << len+1 << " bytes to server" << std::endl;
+    }
     return 0;
 }

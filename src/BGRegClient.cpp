@@ -23,24 +23,11 @@ int main (int argc, char *argv[]) {
     }
 
     UserInputReader usrKeyboardInputs(connectionHandler); //User Input Handling Task
-    std::thread usrKeyboardInputsTheard(&UserInputReader::run,&usrKeyboardInputs); //User Input Handling Task Thread
+    std::thread usrKeyboardInputsThread(&UserInputReader::run, &usrKeyboardInputs); //User Input Handling Task Thread
 
 
-    //From here we will see the rest of the ehco client implementation:
+    // TODO:check for terminate / interrupt configuration & solution
     while (1) {
-        const short bufsize = 1024;
-        char buf[bufsize]; //creating char array that will hold the keyboard input stream of chars
-        std::cin.getline(buf, bufsize); // (cin included therefore blocking on keyboard) reading an entire line of input stream of chars and stored it in the buf char array
-        std::string line(buf); //creating String obj from char array
-        int len=line.length();
-        if (!connectionHandler.sendLine(line)) { //passing string to send to server to the connectionHandler for sending
-            std::cout << "Disconnected. Exiting...\n" << std::endl;
-            break;
-        }
-        // connectionHandler.sendLine(line) appends '\n' to the message. Therefor we send len+1 bytes.
-        std::cout << "Sent " << len+1 << " bytes to server" << std::endl;
-
-
         // We can use one of three options to read data from the server:
         // 1. Read a fixed number of characters
         // 2. Read a line (up to the newline character using the getline() buffered reader
@@ -48,12 +35,13 @@ int main (int argc, char *argv[]) {
         std::string answer;
         // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
         // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
-        if (!connectionHandler.getLine(answer)) {
+        // TODO: Decode server reply to a valid string according to assignment definitions
+        if (!connectionHandler.getLine(answer)) { // getting answer string from server (bytes to string decoding included)
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;
         }
 
-        len=answer.length();
+        int len=answer.length();
         // A C string must end with a 0 char delimiter.  When we filled the answer buffer from the socket
         // we filled up to the \n char - we must make sure now that a 0 char is also present. So we truncate last character.
         answer.resize(len-1);
