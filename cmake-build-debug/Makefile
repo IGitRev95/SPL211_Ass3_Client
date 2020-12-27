@@ -156,6 +156,33 @@ EchoClient/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoClient.dir/build.make CMakeFiles/EchoClient.dir/build
 .PHONY : EchoClient/fast
 
+include/Operation.o: include/Operation.cpp.o
+
+.PHONY : include/Operation.o
+
+# target to build an object file
+include/Operation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/include/Operation.cpp.o
+.PHONY : include/Operation.cpp.o
+
+include/Operation.i: include/Operation.cpp.i
+
+.PHONY : include/Operation.i
+
+# target to preprocess a source file
+include/Operation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/include/Operation.cpp.i
+.PHONY : include/Operation.cpp.i
+
+include/Operation.s: include/Operation.cpp.s
+
+.PHONY : include/Operation.s
+
+# target to generate assembly for a file
+include/Operation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/include/Operation.cpp.s
+.PHONY : include/Operation.cpp.s
+
 src/BGRegClient.o: src/BGRegClient.cpp.o
 
 .PHONY : src/BGRegClient.o
@@ -304,6 +331,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... BGRSclient"
 	@echo "... EchoClient"
+	@echo "... include/Operation.o"
+	@echo "... include/Operation.i"
+	@echo "... include/Operation.s"
 	@echo "... src/BGRegClient.o"
 	@echo "... src/BGRegClient.i"
 	@echo "... src/BGRegClient.s"
