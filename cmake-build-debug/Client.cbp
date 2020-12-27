@@ -133,9 +133,6 @@
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/include/BGRegClient.h">
 			<Option target="BGRSclient"/>
 		</Unit>
-		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/include/Operation.cpp">
-			<Option target="BGRSclient"/>
-		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/include/Operation.h">
 			<Option target="BGRSclient"/>
 		</Unit>
@@ -150,6 +147,9 @@
 			<Option target="EchoClient"/>
 		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/BGRegClient.cpp">
+			<Option target="BGRSclient"/>
+		</Unit>
+		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/Operation.cpp">
 			<Option target="BGRSclient"/>
 		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/Task.cpp">

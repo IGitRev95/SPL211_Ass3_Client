@@ -2,7 +2,7 @@
 // Created by spl211 on 27/12/2020.
 //
 
-#include "Operation.h"
+#include "../include/Operation.h"
 
 Operation::Operation(short opcode, std::string interface): _opCode(opcode), _interfaceCommand(interface){
 

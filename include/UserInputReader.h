@@ -8,6 +8,7 @@
 
 #include "Task.h"
 #include "connectionHandler.h"
+#include "Operation.h"
 
 class UserInputReader: public Task {
 private:

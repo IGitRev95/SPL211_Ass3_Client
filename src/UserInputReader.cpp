@@ -16,6 +16,13 @@ int UserInputReader::run() {
         std::string line(buf); //creating String obj from char array
         int len=line.length();
         // TODO: Encode User command to a legal message/command type by assignment definitions
+        // pars input to Operation Object
+        // make toString & send - should be ok by standard encoder - IDO check bytes array
+        /* TODO:linking problem of Operation cpp - VV testing lines of Op class functionality
+        AcknowledgementOp acknowledgementOp();
+        acknowledgementOp().setArguments("Ido Rules!");
+        line=acknowledgementOp().toString();
+        */
         if (!clientConnectionHandler.sendLine(line)) { //passing string to send to server to the connectionHandler for sending
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;

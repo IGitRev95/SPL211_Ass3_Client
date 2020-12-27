@@ -20,7 +20,7 @@ endif()
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    add_executable(BGRSclient src/connectionHandler.cpp include/connectionHandler.h src/BGRegClient.cpp include/BGRegClient.h src/Task.cpp include/Task.h src/UserInputReader.cpp include/UserInputReader.h include/Operation.h include/Operation.cpp)
+    add_executable(BGRSclient src/connectionHandler.cpp include/connectionHandler.h src/BGRegClient.cpp include/BGRegClient.h src/Task.cpp include/Task.h src/UserInputReader.cpp include/UserInputReader.h include/Operation.h src/Operation.cpp)
     target_link_libraries(BGRSclient ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
