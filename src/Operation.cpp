@@ -17,35 +17,37 @@ std::string Operation::getInterfaceCommand() {
 }
 
 std::string Operation::getArguments() { //return argument of operation as string
-    std::string argumentsLine();
+    std::string argumentsLine("");
     for (int i = 0; i < _arguments.size(); ++i) {
-        argumentsLine()+=(_arguments.at(i));
-        argumentsLine()+=(' ');
+        argumentsLine+=(_arguments.at(i));
+        argumentsLine+=(' ');
     }
-    argumentsLine().resize(argumentsLine().size()-1); //cutting last ' '
-    return argumentsLine();
+    argumentsLine.resize(argumentsLine.size()-1); //cutting last ' '
+    return argumentsLine;
 }
 
 std::string Operation::toString() { //Operation to string
-    std::string opInLine();
+    std::string opInLine("");
     if(_opCode==12||_opCode==13)
     {
-        opInLine()+=(_interfaceCommand+' ');
+        opInLine+=(_interfaceCommand+' ');
     } else{
-        opInLine()+=(_opCode+' ');
+        opInLine+=(_opCode+' ');
     }
-    opInLine()+=getArguments();
-    return opInLine();
+    opInLine+=getArguments();
+    return opInLine;
 }
 
 void Operation::setArguments(std::string argsForOp) {
     if(argsForOp.at(0) == ' ') //cutting first ' ' if its there by mistake
         argsForOp=argsForOp.substr(1);
     unsigned long curpos=0;
-    for (unsigned long lastpos=0; lastpos < argsForOp.length(); lastpos=curpos) {
+    for ( unsigned long lastpos=0; lastpos < argsForOp.length(); lastpos=curpos) {
         curpos=argsForOp.find_first_of(' ', lastpos);
         _arguments.push_back(argsForOp.substr(lastpos, curpos - lastpos));
         curpos++;//to jump over the ' ' before new cycle
+        if (curpos==0)
+            break;
     }
 }
 
