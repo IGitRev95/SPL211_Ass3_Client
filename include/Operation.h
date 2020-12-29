@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-
+#include <boost/lexical_cast.hpp>
 class Operation{
 private:
     short _opCode;

@@ -79,11 +79,11 @@ bool OperationEncoderDecoder::encode(Operation op,  char *bytes) {
         {
             stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
             writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
-            bytes[writeCurrentPos]='/0';
+            bytes[writeCurrentPos]='\0';
             writeCurrentPos++;
             stringToCharArray(op.getArguments().at(1),bytes,writeCurrentPos);
             writeCurrentPos=writeCurrentPos+op.getArguments().at(1).length();
-            bytes[writeCurrentPos]='/0';
+            bytes[writeCurrentPos]='\0';
             writeCurrentPos++;
             return true;
         }
@@ -98,7 +98,15 @@ bool OperationEncoderDecoder::encode(Operation op,  char *bytes) {
         case 9:
         case 10:
         {
-            stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
+            short num=stringToShort(op.getArguments().at(0));
+            if(num==-1)
+                break;
+            char numAsBytes[2];
+            shortToBytes(num,numAsBytes);
+            bytes[writeCurrentPos]=numAsBytes[0];
+            writeCurrentPos++;
+            bytes[writeCurrentPos]=numAsBytes[1];
+            writeCurrentPos++;
             return true;
         }
 
@@ -106,7 +114,7 @@ bool OperationEncoderDecoder::encode(Operation op,  char *bytes) {
         {
             stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
             writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
-            bytes[writeCurrentPos]='/0';
+            bytes[writeCurrentPos]='\0';
             return true;
         }
         default:
@@ -133,4 +141,14 @@ void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, cha
 
 void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr) {
     stringToCharArray(stringToConvert,bytesArr,0);
+}
+
+short OperationEncoderDecoder::stringToShort(std::string stringToConvert) {
+    try{
+        return boost::lexical_cast<short>(stringToConvert);
+    }
+    catch (std::exception& e) {
+        std::cout<<e.what()<<std::endl;
+        return -1;
+    }
 }

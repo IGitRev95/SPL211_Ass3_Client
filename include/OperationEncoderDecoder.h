@@ -6,6 +6,7 @@
 #define CLIENT_OPERATIONENCODERDECODER_H
 
 #include "Operation.h"
+#include <iostream>
 enum OpType
 {
     ADMINREG, STUDENTREG, LOGIN, LOGOUT,
@@ -14,6 +15,7 @@ enum OpType
 };
 
 class OperationEncoderDecoder {
+    //TODO: Add Exceptions about illegal input streams from user like non valid command include additional not needed extra arguments
 public:
     static Operation decode(std::string usrCommand);
     static Operation decode(const char serverCommand[]);
@@ -25,6 +27,7 @@ private:
     static OpType getTypeOfString(std::string typo);
     static void stringToCharArray(std::string stringToConvert,char* bytesArr, int arrayContinueWritePos);
     static void stringToCharArray(std::string stringToConvert,char* bytesArr);
+    static short stringToShort(std::string stringToConvert);
 };
 
 
