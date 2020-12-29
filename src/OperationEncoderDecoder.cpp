@@ -67,3 +67,19 @@ OpType OperationEncoderDecoder::getTypeOfString(std::string typo) {
         return Error;
     // TODO throw exception in case of non valid command
 }
+
+void OperationEncoderDecoder::encode(Operation op, const char *bytes) {
+
+
+}
+
+short OperationEncoderDecoder::bytesToShort(char *bytesArr) {
+    short result = (short)((bytesArr[0] & 0xff) << 8);
+    result += (short)(bytesArr[1] & 0xff);
+    return result;
+}
+
+void OperationEncoderDecoder::shortToBytes(short num, char *bytesArr) {
+    bytesArr[0] = ((num >> 8) & 0xFF);
+    bytesArr[1] = (num & 0xFF);
+}

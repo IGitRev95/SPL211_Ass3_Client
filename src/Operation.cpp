@@ -34,7 +34,7 @@ std::string Operation::toString() { //Operation to string
     } else{
         opInLine+=(_opCode+' ');
     }
-    opInLine+=getArguments();
+    opInLine+=getArguments(); //TODO:: string casting from short not working
     return opInLine;
 }
 

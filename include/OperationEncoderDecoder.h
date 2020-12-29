@@ -18,6 +18,8 @@ public:
     static Operation decode(std::string usrCommand);
     static Operation decode(char serverCommand[]);
     static void encode(Operation op,const char bytes[]);
+    static short bytesToShort(char* bytesArr);
+    static void shortToBytes(short num, char* bytesArr);
 
 private:
     static OpType getTypeOfString(std::string typo);
