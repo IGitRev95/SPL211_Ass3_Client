@@ -210,6 +210,33 @@ src/Operation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/Operation.cpp.s
 .PHONY : src/Operation.cpp.s
 
+src/OperationEncoderDecoder.o: src/OperationEncoderDecoder.cpp.o
+
+.PHONY : src/OperationEncoderDecoder.o
+
+# target to build an object file
+src/OperationEncoderDecoder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/OperationEncoderDecoder.cpp.o
+.PHONY : src/OperationEncoderDecoder.cpp.o
+
+src/OperationEncoderDecoder.i: src/OperationEncoderDecoder.cpp.i
+
+.PHONY : src/OperationEncoderDecoder.i
+
+# target to preprocess a source file
+src/OperationEncoderDecoder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/OperationEncoderDecoder.cpp.i
+.PHONY : src/OperationEncoderDecoder.cpp.i
+
+src/OperationEncoderDecoder.s: src/OperationEncoderDecoder.cpp.s
+
+.PHONY : src/OperationEncoderDecoder.s
+
+# target to generate assembly for a file
+src/OperationEncoderDecoder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BGRSclient.dir/build.make CMakeFiles/BGRSclient.dir/src/OperationEncoderDecoder.cpp.s
+.PHONY : src/OperationEncoderDecoder.cpp.s
+
 src/Task.o: src/Task.cpp.o
 
 .PHONY : src/Task.o
@@ -337,6 +364,9 @@ help:
 	@echo "... src/Operation.o"
 	@echo "... src/Operation.i"
 	@echo "... src/Operation.s"
+	@echo "... src/OperationEncoderDecoder.o"
+	@echo "... src/OperationEncoderDecoder.i"
+	@echo "... src/OperationEncoderDecoder.s"
 	@echo "... src/Task.o"
 	@echo "... src/Task.i"
 	@echo "... src/Task.s"

@@ -9,6 +9,7 @@
 #include "Task.h"
 #include "connectionHandler.h"
 #include "Operation.h"
+#include "OperationEncoderDecoder.h"
 
 class UserInputReader: public Task {
 private:
