@@ -16,13 +16,15 @@ enum OpType
 class OperationEncoderDecoder {
 public:
     static Operation decode(std::string usrCommand);
-    static Operation decode(char serverCommand[]);
-    static void encode(Operation op,const char bytes[]);
+    static Operation decode(const char serverCommand[]);
+    static bool encode(Operation op, char bytes[]);
     static short bytesToShort(char* bytesArr);
     static void shortToBytes(short num, char* bytesArr);
 
 private:
     static OpType getTypeOfString(std::string typo);
+    static void stringToCharArray(std::string stringToConvert,char* bytesArr, int arrayContinueWritePos);
+    static void stringToCharArray(std::string stringToConvert,char* bytesArr);
 };
 
 

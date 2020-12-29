@@ -21,6 +21,8 @@ int UserInputReader::run() {
         // make toString & send - should be ok by standard encoder - IDO check bytes array
         // TODO:linking problem of Operation cpp - VV testing lines of Op class functionality
 //        /*
+        char enc[1024];
+        OperationEncoderDecoder::encode(a,enc);
         line=a.toString();
 
 //*/

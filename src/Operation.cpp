@@ -8,7 +8,7 @@ Operation::Operation(short opcode, std::string interface): _opCode(opcode), _int
 
 }
 
-short Operation::getOpCode() {
+short Operation::getOpCode() const{
     return _opCode;
 }
 
@@ -16,7 +16,7 @@ std::string Operation::getInterfaceCommand() {
     return _interfaceCommand;
 }
 
-std::string Operation::getArguments() { //return argument of operation as string
+std::string Operation::getArgumentsAsString() { //return argument of operation as string
     std::string argumentsLine("");
     for (int i = 0; i < _arguments.size(); ++i) {
         argumentsLine+=(_arguments.at(i));
@@ -34,7 +34,7 @@ std::string Operation::toString() { //Operation to string
     } else{
         opInLine+=(_opCode+' ');
     }
-    opInLine+=getArguments(); //TODO:: string casting from short not working
+    opInLine+= getArgumentsAsString(); //TODO:: string casting from short not working
     return opInLine;
 }
 
@@ -71,6 +71,10 @@ void Operation::setArguments(std::vector<std::string> argsForOp) {
 
 Operation::Operation(short opcode, std::string interface, std::vector<std::string> argsForOp):_opCode(opcode), _interfaceCommand(interface) {
     this->setArguments(argsForOp);
+}
+
+const std::vector<std::string> &Operation::getArguments() const {
+    return _arguments;
 }
 
 AdminRegOp::AdminRegOp():Operation(1,"ADMINREG") {

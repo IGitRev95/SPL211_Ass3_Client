@@ -68,9 +68,50 @@ OpType OperationEncoderDecoder::getTypeOfString(std::string typo) {
     // TODO throw exception in case of non valid command
 }
 
-void OperationEncoderDecoder::encode(Operation op, const char *bytes) {
+bool OperationEncoderDecoder::encode(Operation op,  char *bytes) {
+    int writeCurrentPos(0);
+    shortToBytes(op.getOpCode(), bytes);
+    writeCurrentPos=2;
+    switch (op.getOpCode()) {
+        case 1:
+        case 2:
+        case 3:
+        {
+            stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
+            writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
+            bytes[writeCurrentPos]='/0';
+            writeCurrentPos++;
+            stringToCharArray(op.getArguments().at(1),bytes,writeCurrentPos);
+            writeCurrentPos=writeCurrentPos+op.getArguments().at(1).length();
+            bytes[writeCurrentPos]='/0';
+            writeCurrentPos++;
+            return true;
+        }
 
+        case 4:
+        case 11:
+            return true;
 
+        case 5:
+        case 6:
+        case 7:
+        case 9:
+        case 10:
+        {
+            stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
+            return true;
+        }
+
+        case 8:
+        {
+            stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
+            writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
+            bytes[writeCurrentPos]='/0';
+            return true;
+        }
+        default:
+            return false;
+    }
 }
 
 short OperationEncoderDecoder::bytesToShort(char *bytesArr) {
@@ -82,4 +123,14 @@ short OperationEncoderDecoder::bytesToShort(char *bytesArr) {
 void OperationEncoderDecoder::shortToBytes(short num, char *bytesArr) {
     bytesArr[0] = ((num >> 8) & 0xFF);
     bytesArr[1] = (num & 0xFF);
+}
+
+void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr,int arrayContinueWritePos) {
+    for(int i=0;i<stringToConvert.length();i++){
+        bytesArr[arrayContinueWritePos+i]=stringToConvert.at(i);
+    }
+}
+
+void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr) {
+    stringToCharArray(stringToConvert,bytesArr,0);
 }

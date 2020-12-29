@@ -18,9 +18,10 @@ protected:
     Operation(short opcode, std::string interface);
     Operation(short opcode, std::string interface, std::vector<std::string> argsForOp);
 public:
-    short getOpCode();//maybe protected
+    short getOpCode() const;//maybe protected
     std::string getInterfaceCommand(); //maybe protected
-    std::string getArguments();//maybe protected
+    const std::vector<std::string> &getArguments() const;
+    std::string getArgumentsAsString();//maybe protected
     std::string toString();
     void setArguments(std::string argsForOp);//gets the op arguments as string and splits them by the ' 'chat to the string arguments vector
     void setArguments(std::vector<std::string> argsForOp);
