@@ -75,7 +75,7 @@ OpType OperationEncoderDecoder::getTypeOfString(const std::string& typo) {
     return STUDENTREG;
 }
 
-bool OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
+int OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
     int writeCurrentPos(0);
     shortToBytes(op.getOpCode(), bytes);
     writeCurrentPos=2;
@@ -92,12 +92,12 @@ bool OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
             writeCurrentPos=writeCurrentPos+(int)op.getArguments().at(1).length();
             bytes[writeCurrentPos]='\0';
             writeCurrentPos++;
-            return true;
+            return writeCurrentPos;
         }
 
         case 4:
         case 11:
-            return true;
+            return writeCurrentPos;
 
         case 5:
         case 6:
@@ -114,7 +114,7 @@ bool OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
             writeCurrentPos++;
             bytes[writeCurrentPos]=numAsBytes[1];
             writeCurrentPos++;
-            return true;
+            return writeCurrentPos;
         }
 
         case 8:
@@ -122,10 +122,11 @@ bool OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
             stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
             writeCurrentPos=writeCurrentPos+(int)op.getArguments().at(0).length();
             bytes[writeCurrentPos]='\0';
-            return true;
+            writeCurrentPos++;
+            return writeCurrentPos;
         }
     }
-    return false;
+    return -1;
 }
 
 short OperationEncoderDecoder::bytesToShort(char *bytesArr) {

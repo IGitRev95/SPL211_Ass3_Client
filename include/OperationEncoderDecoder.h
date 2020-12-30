@@ -19,7 +19,7 @@ class OperationEncoderDecoder {
 public:
     static Operation decode(std::string usrCommand);
     static Operation decode(char serverCommand[]);
-    static bool encode(const Operation& op, char bytes[]);
+    static int encode(const Operation& op, char bytes[]); //Returns written length
     static short bytesToShort(char* bytesArr);
     static void shortToBytes(short num, char* bytesArr);
 
