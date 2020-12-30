@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <boost/asio.hpp>
+#include "OperationEncoderDecoder.h"
 
 using boost::asio::ip::tcp;
 
@@ -15,19 +16,19 @@ private:
 	tcp::socket socket_; 
  
 public:
-    ConnectionHandler(std::string host, short port);
-    virtual ~ConnectionHandler();
+    ConnectionHandler(std::string host, short port); //TODO:DO NOT TOUCH!!!
+    virtual ~ConnectionHandler(); //TODO:DO NOT TOUCH!!!
  
     // Connect to the remote machine
-    bool connect();
+    bool connect(); //TODO:DO NOT TOUCH!!!
  
     // Read a fixed number of bytes from the server - blocking.
     // Returns false in case the connection is closed before bytesToRead bytes can be read.
-    bool getBytes(char bytes[], unsigned int bytesToRead);
+    bool getBytes(char bytes[], unsigned int bytesToRead); //TODO:DO NOT TOUCH!!!
  
 	// Send a fixed number of bytes from the client - blocking.
     // Returns false in case the connection is closed before all the data is sent.
-    bool sendBytes(const char bytes[], int bytesToWrite);
+    bool sendBytes(const char bytes[], int bytesToWrite); //TODO:DO NOT TOUCH!!!
 	
     // Read an ascii line from the server
     // Returns false in case connection closed before a newline can be read.
@@ -46,8 +47,18 @@ public:
     bool sendFrameAscii(const std::string& frame, char delimiter);
 	
     // Close down the connection properly.
-    void close();
- 
+    void close(); //TODO:DO NOT TOUCH!!!
+
+    //--------------------------------self addition to connection handler
+
+    //sending Operation to server
+    bool sendOp(Operation& opToSend); //TODO:NOT FULLY TESTED
+
+    //setting opReceived with the decoded operation received from server
+    bool getOp(Operation& opReceived); //TODO:NOT TESTED
+
+    //gathering all the necessary bytes for operation decoding
+    bool buildBytesArray(char bytes[]); //TODO:NOT TESTED
 }; //class ConnectionHandler
  
 #endif

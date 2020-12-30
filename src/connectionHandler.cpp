@@ -70,7 +70,6 @@ bool ConnectionHandler::getLine(std::string& line) {
 bool ConnectionHandler::sendLine(std::string& line) {
     return sendFrameAscii(line, '\n');
 }
- 
 
 bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
     char ch;
@@ -91,8 +90,7 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
     }
     return true;
 }
- 
- 
+
 bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter) {
 	bool result=sendBytes(frame.c_str(),frame.length());
 	if(!result) return false;
@@ -106,4 +104,57 @@ void ConnectionHandler::close() {
     } catch (...) {
         std::cout << "closing failed: connection already closed" << std::endl;
     }
+}
+
+bool ConnectionHandler::sendOp(Operation &opToSend) {
+    char bytesBuff[1024];
+    int amountOfBytesToWrite=OperationEncoderDecoder::encode(opToSend, bytesBuff);
+    if(amountOfBytesToWrite!=-1)
+    {
+        return sendBytes(bytesBuff,amountOfBytesToWrite);
+    }
+    return false;
+}
+
+bool ConnectionHandler::getOp(Operation& opReceived) {
+    char bytesBuff[1024];
+    if(!buildBytesArray(bytesBuff))
+        return false;
+    opReceived=OperationEncoderDecoder::decode(bytesBuff);
+    return true;
+}
+
+bool ConnectionHandler::buildBytesArray(char bytes[]) {
+    char ch;
+    // Stop when we encounter the null character.
+    // Notice that the null character is not appended to the frame string.
+    int readingIndex=0;
+    try {
+        //reading opCode + MessageOpCode
+        for(;readingIndex<4;readingIndex++)
+        {
+            if(!getBytes(&ch, 1))
+            {
+                return false;
+            }
+            bytes[readingIndex]=ch;
+        }
+        short opCode=OperationEncoderDecoder::bytesToShort(bytes);
+        //if it's ACK read extra necessary data
+        if(opCode==12)
+        {
+            do{
+                if(!getBytes(&ch, 1))
+                {
+                    return false;
+                }
+                bytes[readingIndex]=ch;
+                readingIndex++;
+            }while ('\0' != ch);
+        }
+    } catch (std::exception& e) {
+        std::cerr << "recv failed2 (Error: " << e.what() << ')' << std::endl;
+        return false;
+    }
+    return true;
 }
