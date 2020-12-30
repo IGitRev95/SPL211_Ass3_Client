@@ -11,7 +11,7 @@ enum OpType
 {
     ADMINREG, STUDENTREG, LOGIN, LOGOUT,
     COURSEREG, KDAMCHECK, COURSESTAT, STUDENTSTAT,
-    ISREGISTERED, UNREGISTER, MYCOURSES, ACK, Error
+    ISREGISTERED, UNREGISTER, MYCOURSES//, ACK, Error
 };
 
 class OperationEncoderDecoder {
@@ -19,15 +19,15 @@ class OperationEncoderDecoder {
 public:
     static Operation decode(std::string usrCommand);
     static Operation decode(char serverCommand[]);
-    static bool encode(Operation op, char bytes[]);
+    static bool encode(const Operation& op, char bytes[]);
     static short bytesToShort(char* bytesArr);
     static void shortToBytes(short num, char* bytesArr);
 
 private:
-    static OpType getTypeOfString(std::string typo);
+    static OpType getTypeOfString(const std::string& typo);
     static void stringToCharArray(std::string stringToConvert,char* bytesArr, int arrayWritefromPos);
     static void stringToCharArray(std::string stringToConvert,char* bytesArr);
-    static short stringToShort(std::string stringToConvert);
+    static short stringToShort(const std::string& stringToConvert);
 };
 
 

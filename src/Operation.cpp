@@ -27,14 +27,15 @@ std::string Operation::getArgumentsAsString() { //return argument of operation a
 }
 
 std::string Operation::toString() { //Operation to string
-    std::string opInLine("");
-    if(_opCode==12||_opCode==13)
-    {
-        opInLine+=(_interfaceCommand+' ');
-    } else{
-        opInLine+=(std::to_string(_opCode)+' ');
+    std::string opInLine;
+    switch (_opCode) {
+        case 12:
+            return ((AcknowledgementOp*)this)->ackToString();
+        case 13:
+            return ((ErrorOp*)this)->errorToString();
     }
-    opInLine+= getArgumentsAsString(); //TODO:: string casting from short not working
+    opInLine+=(std::to_string(_opCode)+' ');
+    opInLine+=getArgumentsAsString();
     return opInLine;
 }
 
@@ -175,18 +176,48 @@ MyCoursesOp::MyCoursesOp(std::vector<std::string> argsForOp):Operation(11,"MYCOU
 
 }
 
-AcknowledgementOp::AcknowledgementOp():Operation(12,"ACK") {
+AcknowledgementOp::AcknowledgementOp():Operation(12,"ACK"),_ackOf(0) {
 
 }
 
-AcknowledgementOp::AcknowledgementOp(std::vector<std::string> argsForOp):Operation(12,"ACK",argsForOp) {
+AcknowledgementOp::AcknowledgementOp(std::vector<std::string> argsForOp):Operation(12,"ACK",argsForOp),_ackOf(0) {
 
 }
 
-ErrorOp::ErrorOp():Operation(13,"Error") {
+AcknowledgementOp::AcknowledgementOp(short ackOf):Operation(12,"ACK"),_ackOf(ackOf) {
 
 }
 
-ErrorOp::ErrorOp(std::vector<std::string> argsForOp):Operation(13,"Error",argsForOp) {
+std::string AcknowledgementOp::ackToString() {
+    std::string output(this->getInterfaceCommand()+' '+std::to_string(getAckOf()));
+    if(!this->getArguments().empty())
+    {
+        output+=("\n"+this->getArgumentsAsString());
+    }
+    return output;
+}
 
+short AcknowledgementOp::getAckOf() const {
+    return _ackOf;
+}
+
+ErrorOp::ErrorOp():Operation(13,"Error"),_errorOf(0) {
+
+}
+
+ErrorOp::ErrorOp(std::vector<std::string> argsForOp):Operation(13,"Error",argsForOp),_errorOf(0) {
+
+}
+
+short ErrorOp::getErrorOf() const {
+    return _errorOf;
+}
+
+ErrorOp::ErrorOp(short errorOf):Operation(13,"Error"),_errorOf(errorOf) {
+
+}
+
+std::string ErrorOp::errorToString() {
+    std::string output(this->getInterfaceCommand()+' '+std::to_string(getErrorOf()));
+    return output;
 }

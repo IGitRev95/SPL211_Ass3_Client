@@ -4,8 +4,10 @@
 
 #include "../include/OperationEncoderDecoder.h"
 
+#include <utility>
+
 Operation OperationEncoderDecoder::decode(std::string usrCommand) {
-    std::vector<std::string> commandParsedParts=Operation::splitString(usrCommand,' ');
+    std::vector<std::string> commandParsedParts= Operation::splitString(std::move(usrCommand),' ');
     std::string commandName(commandParsedParts.at(0));//cutting interface
     commandParsedParts.erase(commandParsedParts.begin());
     switch (getTypeOfString(commandName)) {
@@ -31,44 +33,49 @@ Operation OperationEncoderDecoder::decode(std::string usrCommand) {
             return CourseUnRegOp(commandParsedParts);
         case MYCOURSES:
             return MyCoursesOp(commandParsedParts);
+/*
         case ACK:
             return AcknowledgementOp(commandParsedParts);
         case Error:
             return ErrorOp(commandParsedParts);
+*/
     }
 }
 
-OpType OperationEncoderDecoder::getTypeOfString(std::string typo) {
-    if (typo.compare("ADMINREG")==0)
+OpType OperationEncoderDecoder::getTypeOfString(const std::string& typo) {
+    if (typo=="ADMINREG")
         return ADMINREG;
-    if (typo.compare("STUDENTREG")==0)
+    if (typo=="STUDENTREG")
         return STUDENTREG;
-    if (typo.compare("LOGIN")==0)
+    if (typo=="LOGIN")
         return LOGIN;
-    if (typo.compare("LOGOUT")==0)
+    if (typo=="LOGOUT")
         return LOGOUT;
-    if (typo.compare("COURSEREG")==0)
+    if (typo=="COURSEREG")
         return COURSEREG;
-    if (typo.compare("KDAMCHECK")==0)
+    if (typo=="KDAMCHECK")
         return KDAMCHECK;
-    if (typo.compare("COURSESTAT")==0)
+    if (typo=="COURSESTAT")
         return COURSESTAT;
-    if (typo.compare("STUDENTSTAT")==0)
+    if (typo=="STUDENTSTAT")
         return STUDENTSTAT;
-    if (typo.compare("ISREGISTERED")==0)
+    if (typo=="ISREGISTERED")
         return ISREGISTERED;
-    if (typo.compare("UNREGISTER")==0)
+    if (typo=="UNREGISTER")
         return UNREGISTER;
-    if (typo.compare("MYCOURSES")==0)
+    if (typo=="MYCOURSES")
         return MYCOURSES;
-    if (typo.compare("ACK")==0)
+/*
+    if (typo=="ACK")
         return ACK;
-    if (typo.compare("Error")==0)
+    if (typo=="Error")
         return Error;
-    // TODO throw exception in case of non valid command
+*/
+    // TODO throw exception in case of non valid command + delete returnVVV
+    return STUDENTREG;
 }
 
-bool OperationEncoderDecoder::encode(Operation op,  char *bytes) {
+bool OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
     int writeCurrentPos(0);
     shortToBytes(op.getOpCode(), bytes);
     writeCurrentPos=2;
@@ -78,11 +85,11 @@ bool OperationEncoderDecoder::encode(Operation op,  char *bytes) {
         case 3:
         {
             stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
-            writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
+            writeCurrentPos=writeCurrentPos+(int)op.getArguments().at(0).length();
             bytes[writeCurrentPos]='\0';
             writeCurrentPos++;
             stringToCharArray(op.getArguments().at(1),bytes,writeCurrentPos);
-            writeCurrentPos=writeCurrentPos+op.getArguments().at(1).length();
+            writeCurrentPos=writeCurrentPos+(int)op.getArguments().at(1).length();
             bytes[writeCurrentPos]='\0';
             writeCurrentPos++;
             return true;
@@ -113,13 +120,12 @@ bool OperationEncoderDecoder::encode(Operation op,  char *bytes) {
         case 8:
         {
             stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
-            writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
+            writeCurrentPos=writeCurrentPos+(int)op.getArguments().at(0).length();
             bytes[writeCurrentPos]='\0';
             return true;
         }
-        default:
-            return false;
     }
+    return false;
 }
 
 short OperationEncoderDecoder::bytesToShort(char *bytesArr) {
@@ -140,10 +146,10 @@ void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, cha
 }
 
 void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr) {
-    stringToCharArray(stringToConvert,bytesArr,0);
+    stringToCharArray(std::move(stringToConvert),bytesArr,0);
 }
 
-short OperationEncoderDecoder::stringToShort(std::string stringToConvert) {
+short OperationEncoderDecoder::stringToShort(const std::string& stringToConvert) {
     try{
         return boost::lexical_cast<short>(stringToConvert);
     }
@@ -153,14 +159,14 @@ short OperationEncoderDecoder::stringToShort(std::string stringToConvert) {
     }
 }
 
-Operation OperationEncoderDecoder::decode(char *serverCommand) {//TODO:not Tested and needs cleaning and default
+Operation OperationEncoderDecoder::decode(char *serverCommand) {//TODO:needs cleaning and default
     int readFromPoss(0);
     short commandOpcode=bytesToShort(serverCommand);
     readFromPoss=2;
     Operation* decodedOp= nullptr;
-    std::string args("");
+    std::string args;
     switch (commandOpcode) { //TODO: usage of new be sure to free allocated memory
-//        case 1:
+/*//        case 1:
 //            decodedOp=new AdminRegOp();
 //            break;
 //        case 2:
@@ -228,30 +234,28 @@ Operation OperationEncoderDecoder::decode(char *serverCommand) {//TODO:not Teste
 //        }
 //        default:
 //            return false;
-        case 12:
+ */       case 12:
         {
-            decodedOp=new AcknowledgementOp();
             char bytestoShort[2];
             bytestoShort[0]=serverCommand[readFromPoss];
             readFromPoss++;
             bytestoShort[1]=serverCommand[readFromPoss];
             readFromPoss++;
             short ackOfOpCode = bytesToShort(bytestoShort);
-            args+=(std::to_string(ackOfOpCode)+' ');
+            decodedOp=new AcknowledgementOp(ackOfOpCode);
             args+=(Operation::charArrayTostring(serverCommand,'\0',readFromPoss));
             decodedOp->setArguments(args);
             break;
         }
         case 13:
         {
-            decodedOp=new ErrorOp();
             char bytestoShort[2];
             bytestoShort[0]=serverCommand[readFromPoss];
             readFromPoss++;
             bytestoShort[1]=serverCommand[readFromPoss];
             readFromPoss++;
-            short ackOfOpCode = bytesToShort(bytestoShort);
-            args+=(std::to_string(ackOfOpCode));
+            short errorOfOpCode = bytesToShort(bytestoShort);
+            decodedOp=new ErrorOp(errorOfOpCode);
             break;
         }
     }
