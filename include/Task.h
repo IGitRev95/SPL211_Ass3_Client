@@ -5,6 +5,7 @@
 #ifndef CLIENT_TASK_H
 #define CLIENT_TASK_H
 
+#include <thread>
 
 class Task {
 protected:

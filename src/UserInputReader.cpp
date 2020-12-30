@@ -14,6 +14,7 @@ int UserInputReader::run() {
         std::cin.getline(buf, bufsize); // (cin included therefore blocking on keyboard) reading an entire line of input stream of chars and stored it in the buf char array
         std::string line(buf); //creating String obj from char array
         Operation command=OperationEncoderDecoder::decode(line); //creating Operation Object from usr end
+       /*
 //        char enc[1024];
 ////        /*
 /////* ack decoder test from server
@@ -28,7 +29,7 @@ int UserInputReader::run() {
 //        enc[14]='\0';
 //        Operation b=OperationEncoderDecoder::decode(enc);
 //        std::cout<<b.toString()<<std::endl;
-//*/
+*/
         if (!clientConnectionHandler.sendOp(command)) { //passing string to send to server to the connectionHandler for sending
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;
@@ -36,14 +37,16 @@ int UserInputReader::run() {
 
         if(command.getOpCode()==4)
         {
-            while (!terminate){}
+            while (!terminate){std::this_thread::yield();}
             break;
         }
+       /*
 //        if (!clientConnectionHandler.sendLine(line)) { //passing string to send to server to the connectionHandler for sending
 //            std::cout << "Disconnected. Exiting...\n" << std::endl;
 //            break;
 //        }
         // connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
+        */
         int len=OperationEncoderDecoder::encode(command,buf);
         std::cout << "Sent " << len << " bytes to server" << std::endl;
     }
