@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 #include <boost/lexical_cast.hpp>
+#include <boost/scoped_array.hpp>
+
 class Operation{
 private:
     short _opCode;
@@ -22,10 +24,11 @@ public:
     std::string getInterfaceCommand(); //maybe protected
     const std::vector<std::string> &getArguments() const;
     std::string getArgumentsAsString();//maybe protected
-    std::string toString();
+    std::string toString();//TODO:not Tested
     void setArguments(std::string argsForOp);//gets the op arguments as string and splits them by the ' 'chat to the string arguments vector
     void setArguments(std::vector<std::string> argsForOp);
     static std::vector<std::string> splitString(const std::string toSplit,char delimiter);
+    static std::string charArrayTostring(const char *charArrayToConvert, char delimiter, int poss_s); //TODO:not Tested
 };
 
 class AdminRegOp: public Operation{

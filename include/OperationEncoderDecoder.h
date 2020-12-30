@@ -18,14 +18,14 @@ class OperationEncoderDecoder {
     //TODO: Add Exceptions about illegal input streams from user like non valid command include additional not needed extra arguments
 public:
     static Operation decode(std::string usrCommand);
-    static Operation decode(const char serverCommand[]);
+    static Operation decode(char serverCommand[]);
     static bool encode(Operation op, char bytes[]);
     static short bytesToShort(char* bytesArr);
     static void shortToBytes(short num, char* bytesArr);
 
 private:
     static OpType getTypeOfString(std::string typo);
-    static void stringToCharArray(std::string stringToConvert,char* bytesArr, int arrayContinueWritePos);
+    static void stringToCharArray(std::string stringToConvert,char* bytesArr, int arrayWritefromPos);
     static void stringToCharArray(std::string stringToConvert,char* bytesArr);
     static short stringToShort(std::string stringToConvert);
 };

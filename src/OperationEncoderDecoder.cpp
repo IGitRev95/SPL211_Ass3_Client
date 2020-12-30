@@ -133,9 +133,9 @@ void OperationEncoderDecoder::shortToBytes(short num, char *bytesArr) {
     bytesArr[1] = (num & 0xFF);
 }
 
-void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr,int arrayContinueWritePos) {
+void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr,int arrayWritefromPos) {//TODO:not Tested
     for(int i=0;i<stringToConvert.length();i++){
-        bytesArr[arrayContinueWritePos+i]=stringToConvert.at(i);
+        bytesArr[arrayWritefromPos + i]=stringToConvert.at(i);
     }
 }
 
@@ -151,4 +151,109 @@ short OperationEncoderDecoder::stringToShort(std::string stringToConvert) {
         std::cout<<e.what()<<std::endl;
         return -1;
     }
+}
+
+Operation OperationEncoderDecoder::decode(char *serverCommand) {//TODO:not Tested and needs cleaning and default
+    int readFromPoss(0);
+    short commandOpcode=bytesToShort(serverCommand);
+    readFromPoss=2;
+    Operation* decodedOp= nullptr;
+    std::string args("");
+    switch (commandOpcode) { //TODO: usage of new be sure to free allocated memory
+//        case 1:
+//            decodedOp=new AdminRegOp();
+//            break;
+//        case 2:
+//            decodedOp=new StudentRegOp();
+//            break;
+//        case 3:
+//            decodedOp=new LoginReqOp();
+//            break;
+//        {
+//            stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
+//            writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
+//            bytes[writeCurrentPos]='\0';
+//            writeCurrentPos++;
+//            stringToCharArray(op.getArguments().at(1),bytes,writeCurrentPos);
+//            writeCurrentPos=writeCurrentPos+op.getArguments().at(1).length();
+//            bytes[writeCurrentPos]='\0';
+//            writeCurrentPos++;
+//            return true;
+//        }
+//
+//        case 4:
+//            decodedOp=new LogoutReqOp();
+//            break;
+//        case 11:
+//            decodedOp=new MyCoursesOp();
+//            break;
+//            return true;
+//
+//        case 5:
+//            decodedOp=new CourseRegOp();
+//            break;
+//        case 6:
+//            decodedOp=new KdamCourseCheckOp();
+//            break;
+//        case 7:
+//            decodedOp=new PrintCourseStatOp();
+//            break;
+//        case 9:
+//            decodedOp=new IsRegOp();
+//            break;
+//        {
+//            short num=stringToShort(op.getArguments().at(0));
+//            if(num==-1)
+//                break;
+//            char numAsBytes[2];
+//            shortToBytes(num,numAsBytes);
+//            bytes[writeCurrentPos]=numAsBytes[0];
+//            writeCurrentPos++;
+//            bytes[writeCurrentPos]=numAsBytes[1];
+//            writeCurrentPos++;
+//            return true;
+//        }
+//        case 10:
+//            decodedOp=new CourseUnRegOp();
+//            break;
+//
+//        case 8:
+//            decodedOp=new PrintStudentStatOp();
+//            break;
+//        {
+//            stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
+//            writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
+//            bytes[writeCurrentPos]='\0';
+//            return true;
+//        }
+//        default:
+//            return false;
+        case 12:
+        {
+            decodedOp=new AcknowledgementOp();
+            char bytestoShort[2];
+            bytestoShort[0]=serverCommand[readFromPoss];
+            readFromPoss++;
+            bytestoShort[1]=serverCommand[readFromPoss];
+            readFromPoss++;
+            short ackOfOpCode = bytesToShort(bytestoShort);
+            args+=(std::to_string(ackOfOpCode)+' ');
+            args+=(Operation::charArrayTostring(serverCommand,'\0',readFromPoss));
+            decodedOp->setArguments(args);
+            break;
+        }
+        case 13:
+        {
+            decodedOp=new ErrorOp();
+            char bytestoShort[2];
+            bytestoShort[0]=serverCommand[readFromPoss];
+            readFromPoss++;
+            bytestoShort[1]=serverCommand[readFromPoss];
+            readFromPoss++;
+            short ackOfOpCode = bytesToShort(bytestoShort);
+            args+=(std::to_string(ackOfOpCode));
+            break;
+        }
+    }
+    return *decodedOp;
 }

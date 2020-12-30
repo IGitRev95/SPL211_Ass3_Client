@@ -32,7 +32,7 @@ std::string Operation::toString() { //Operation to string
     {
         opInLine+=(_interfaceCommand+' ');
     } else{
-        opInLine+=(_opCode+' ');
+        opInLine+=(std::to_string(_opCode)+' ');
     }
     opInLine+= getArgumentsAsString(); //TODO:: string casting from short not working
     return opInLine;
@@ -75,6 +75,16 @@ Operation::Operation(short opcode, std::string interface, std::vector<std::strin
 
 const std::vector<std::string> &Operation::getArguments() const {
     return _arguments;
+}
+
+std::string Operation::charArrayTostring(const char *charArrayToConvert, char delimiter, int poss_s) {
+    std::string convertedDataString;
+    while (charArrayToConvert[poss_s] != delimiter)
+    {
+        convertedDataString+=charArrayToConvert[poss_s];
+        poss_s=poss_s+1;
+    }
+    return convertedDataString;
 }
 
 AdminRegOp::AdminRegOp():Operation(1,"ADMINREG") {
