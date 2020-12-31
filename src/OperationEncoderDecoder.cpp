@@ -141,7 +141,7 @@ void OperationEncoderDecoder::shortToBytes(short num, char *bytesArr) {
 }
 
 void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr,int arrayWritefromPos) {
-    for(int i=0;i<stringToConvert.length();i++){
+    for(unsigned int i=0;i<stringToConvert.length();i++){
         bytesArr[arrayWritefromPos + i]=stringToConvert.at(i);
     }
 }

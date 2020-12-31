@@ -4,7 +4,7 @@
 
 #include "../include/Operation.h"
 
-Operation::Operation(short opcode, std::string interface): _opCode(opcode), _interfaceCommand(interface){
+Operation::Operation(short opcode, std::string interface): _opCode(opcode), _interfaceCommand(interface),_arguments(){
 
 }
 
@@ -18,7 +18,7 @@ std::string Operation::getInterfaceCommand() {
 
 std::string Operation::getArgumentsAsString() { //return argument of operation as string
     std::string argumentsLine("");
-    for (int i = 0; i < _arguments.size(); ++i) {
+    for (unsigned int i = 0; i < _arguments.size(); ++i) {
         argumentsLine+=(_arguments.at(i));
         argumentsLine+=(' ');
     }
@@ -44,7 +44,7 @@ void Operation::setArguments(std::string argsForOp) {
         i++;
     }
     std::vector<std::string> splitArgsForOp=Operation::splitString(argsForOp,' ');
-    for( int j=0;j<splitArgsForOp.size();j++)
+    for(unsigned int j=0;j<splitArgsForOp.size();j++)
         _arguments.push_back(splitArgsForOp.at(j));
 
 }
@@ -63,11 +63,11 @@ std::vector<std::string> Operation::splitString(const std::string toSplit, char 
 }
 
 void Operation::setArguments(std::vector<std::string> argsForOp) {
-    for( int j=0;j<argsForOp.size();j++)
+    for(unsigned int j=0;j<argsForOp.size();j++)
         _arguments.push_back(argsForOp.at(j));
 }
 
-Operation::Operation(short opcode, std::string interface, std::vector<std::string> argsForOp):_opCode(opcode), _interfaceCommand(interface) {
+Operation::Operation(short opcode, std::string interface, std::vector<std::string> argsForOp):_opCode(opcode), _interfaceCommand(interface),_arguments(argsForOp){
     this->setArguments(argsForOp);
 }
 
