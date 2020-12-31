@@ -55,7 +55,7 @@ public:
     bool sendOp(Operation& opToSend); //TODO:NOT FULLY TESTED
 
     //setting opReceived with the decoded operation received from server
-    bool getOp(Operation& opReceived); //TODO:NOT TESTED
+    bool getOp(Operation* opReceived); //TODO:NOT TESTED
 
     //gathering all the necessary bytes for operation decoding
     bool buildBytesArray(char bytes[]); //TODO:NOT TESTED

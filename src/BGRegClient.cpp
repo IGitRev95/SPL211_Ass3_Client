@@ -38,7 +38,7 @@ int main (int argc, char *argv[]) {
         // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
         // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
         // TODO: Decode server reply to a valid string according to assignment definitions
-        if (!connectionHandler.getOp(*answer)) { // getting answer string from server (bytes to string decoding included)
+        if (!connectionHandler.getOp(answer)) { // getting answer string from server (bytes to string decoding included)
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;
         }
@@ -51,6 +51,7 @@ int main (int argc, char *argv[]) {
             terminate=true;
             usrKeyboardInputsThread.join();
         }
+        delete answer;
     }
     return 0;
 }

@@ -160,11 +160,11 @@ short OperationEncoderDecoder::stringToShort(const std::string& stringToConvert)
     }
 }
 
-Operation OperationEncoderDecoder::decode(char *serverCommand) {//TODO:needs cleaning and default
+bool OperationEncoderDecoder::decode(char *serverCommand,Operation* decodedOp) {//TODO:needs cleaning and default
     int readFromPoss(0);
     short commandOpcode=bytesToShort(serverCommand);
     readFromPoss=2;
-    Operation* decodedOp= nullptr;
+//    Operation* decodedOp= nullptr;
     std::string args;
     switch (commandOpcode) { //TODO: usage of new be sure to free allocated memory
 /*//        case 1:
@@ -246,7 +246,7 @@ Operation OperationEncoderDecoder::decode(char *serverCommand) {//TODO:needs cle
             decodedOp=new AcknowledgementOp(ackOfOpCode);
             args+=(Operation::charArrayTostring(serverCommand,'\0',readFromPoss));
             decodedOp->setArguments(args);
-            break;
+            return true;
         }
         case 13:
         {
@@ -257,8 +257,8 @@ Operation OperationEncoderDecoder::decode(char *serverCommand) {//TODO:needs cle
             readFromPoss++;
             short errorOfOpCode = bytesToShort(bytestoShort);
             decodedOp=new ErrorOp(errorOfOpCode);
-            break;
+            return true;
         }
     }
-    return *decodedOp;
+    return false;
 }

@@ -116,12 +116,13 @@ bool ConnectionHandler::sendOp(Operation &opToSend) {
     return false;
 }
 
-bool ConnectionHandler::getOp(Operation& opReceived) {
+bool ConnectionHandler::getOp(Operation* opReceived) {
     char bytesBuff[1024];
     if(!buildBytesArray(bytesBuff))
         return false;
-    opReceived=OperationEncoderDecoder::decode(bytesBuff);
-    return true;
+    if(OperationEncoderDecoder::decode(bytesBuff,opReceived))
+        return true;
+    return false;
 }
 
 bool ConnectionHandler::buildBytesArray(char bytes[]) {
