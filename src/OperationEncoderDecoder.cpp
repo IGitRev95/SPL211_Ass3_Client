@@ -140,14 +140,10 @@ void OperationEncoderDecoder::shortToBytes(short num, char *bytesArr) {
     bytesArr[1] = (num & 0xFF);
 }
 
-void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr,int arrayWritefromPos) {//TODO:not Tested
+void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr,int arrayWritefromPos) {
     for(int i=0;i<stringToConvert.length();i++){
         bytesArr[arrayWritefromPos + i]=stringToConvert.at(i);
     }
-}
-
-void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr) {
-    stringToCharArray(std::move(stringToConvert),bytesArr,0);
 }
 
 short OperationEncoderDecoder::stringToShort(const std::string& stringToConvert) {
@@ -164,100 +160,28 @@ bool OperationEncoderDecoder::decode(char *serverCommand,ReplyOp** decodedOp) {/
     int readFromPoss(0);
     short commandOpcode=bytesToShort(serverCommand);
     readFromPoss=2;
-//    Operation* decodedOp= nullptr;
-    switch (commandOpcode) { //TODO: usage of new be sure to free allocated memory
-
-/*//        case 1:
-//            decodedOp=new AdminRegOp();
-//            break;
-//        case 2:
-//            decodedOp=new StudentRegOp();
-//            break;
-//        case 3:
-//            decodedOp=new LoginReqOp();
-//            break;
-//        {
-//            stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
-//            writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
-//            bytes[writeCurrentPos]='\0';
-//            writeCurrentPos++;
-//            stringToCharArray(op.getArguments().at(1),bytes,writeCurrentPos);
-//            writeCurrentPos=writeCurrentPos+op.getArguments().at(1).length();
-//            bytes[writeCurrentPos]='\0';
-//            writeCurrentPos++;
-//            return true;
-//        }
-//
-//        case 4:
-//            decodedOp=new LogoutReqOp();
-//            break;
-//        case 11:
-//            decodedOp=new MyCoursesOp();
-//            break;
-//            return true;
-//
-//        case 5:
-//            decodedOp=new CourseRegOp();
-//            break;
-//        case 6:
-//            decodedOp=new KdamCourseCheckOp();
-//            break;
-//        case 7:
-//            decodedOp=new PrintCourseStatOp();
-//            break;
-//        case 9:
-//            decodedOp=new IsRegOp();
-//            break;
-//        {
-//            short num=stringToShort(op.getArguments().at(0));
-//            if(num==-1)
-//                break;
-//            char numAsBytes[2];
-//            shortToBytes(num,numAsBytes);
-//            bytes[writeCurrentPos]=numAsBytes[0];
-//            writeCurrentPos++;
-//            bytes[writeCurrentPos]=numAsBytes[1];
-//            writeCurrentPos++;
-//            return true;
-//        }
-//        case 10:
-//            decodedOp=new CourseUnRegOp();
-//            break;
-//
-//        case 8:
-//            decodedOp=new PrintStudentStatOp();
-//            break;
-//        {
-//            stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
-//            writeCurrentPos=writeCurrentPos+op.getArguments().at(0).length();
-//            bytes[writeCurrentPos]='\0';
-//            return true;
-//        }
-//        default:
-//            return false;
- */       case 12:
-        {
-            char bytestoShort[2];
-            bytestoShort[0]=serverCommand[readFromPoss];
-            readFromPoss++;
-            bytestoShort[1]=serverCommand[readFromPoss];
-            //readFromPoss++;
-            short ackOfOpCode = bytesToShort(bytestoShort);
-            *decodedOp=new AcknowledgementOp (ackOfOpCode);
-            (*decodedOp)->setArguments(Operation::charArrayTostring(serverCommand,'\0',readFromPoss));
-            return true;
-        }
-        case 13:
-        {
-            char bytestoShort[2];
-            bytestoShort[0]=serverCommand[readFromPoss];
-            readFromPoss++;
-            bytestoShort[1]=serverCommand[readFromPoss];
-            //readFromPoss++;
-            short errorOfOpCode = bytesToShort(bytestoShort);
-            *decodedOp=new ErrorOp(errorOfOpCode);
-            return true;
-        }
+    if(commandOpcode==12)
+    {
+        char bytestoShort[2];
+        bytestoShort[0]=serverCommand[readFromPoss];
+        readFromPoss++;
+        bytestoShort[1]=serverCommand[readFromPoss];
+        //readFromPoss++;
+        short ackOfOpCode = bytesToShort(bytestoShort);
+        *decodedOp=new AcknowledgementOp (ackOfOpCode);
+        (*decodedOp)->setArguments(Operation::charArrayTostring(serverCommand,'\0',readFromPoss));
+        return true;
+    }
+    if(commandOpcode==13)
+    {
+        char bytestoShort[2];
+        bytestoShort[0]=serverCommand[readFromPoss];
+        readFromPoss++;
+        bytestoShort[1]=serverCommand[readFromPoss];
+        //readFromPoss++;
+        short errorOfOpCode = bytesToShort(bytestoShort);
+        *decodedOp=new ErrorOp(errorOfOpCode);
+        return true;
     }
     return false;
 }

@@ -26,7 +26,6 @@ public:
 private:
     static OpType getTypeOfString(const std::string& typo);
     static void stringToCharArray(std::string stringToConvert,char* bytesArr, int arrayWritefromPos);
-    static void stringToCharArray(std::string stringToConvert,char* bytesArr);
     static short stringToShort(const std::string& stringToConvert);
 };
 

@@ -165,9 +165,6 @@
 			<Option target="BGRSclient"/>
 			<Option target="EchoClient"/>
 		</Unit>
-		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/echoClient.cpp">
-			<Option target="EchoClient"/>
-		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

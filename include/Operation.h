@@ -118,7 +118,6 @@ class AcknowledgementOp: public ReplyOp{
 public:
     AcknowledgementOp();
     AcknowledgementOp(short ackOf);
-    AcknowledgementOp(std::vector<std::string> argsForOp);
 
     std::string replyToString();
 
@@ -129,7 +128,6 @@ class ErrorOp: public ReplyOp{
 public:
     ErrorOp();
     ErrorOp(short errorOf);
-    ErrorOp(std::vector<std::string> argsForOp);
 
     std::string replyToString();
 

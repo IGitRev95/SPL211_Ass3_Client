@@ -28,11 +28,9 @@ std::string Operation::getArgumentsAsString() { //return argument of operation a
 
 std::string Operation::toString() { //Operation to string
     std::string opInLine;
-    switch (_opCode) {
-        case 12:
-        case 13:
-            return ((ReplyOp*)this)->replyToString();
-    }
+    if(_opCode==12||_opCode==13)
+        return ((ReplyOp*)this)->replyToString();
+
     opInLine+=(std::to_string(_opCode)+' ');
     opInLine+=getArgumentsAsString();
     return opInLine;
@@ -179,10 +177,6 @@ AcknowledgementOp::AcknowledgementOp():ReplyOp(12,"ACK") {
 
 }
 
-AcknowledgementOp::AcknowledgementOp(std::vector<std::string> argsForOp):ReplyOp(12,"ACK",0,argsForOp) {
-
-}
-
 AcknowledgementOp::AcknowledgementOp(short ackOf):ReplyOp(12,"ACK",ackOf) {
 
 }
@@ -201,10 +195,6 @@ short AcknowledgementOp::getAckOf() const {
 }
 
 ErrorOp::ErrorOp():ReplyOp(13,"Error",0){
-
-}
-
-ErrorOp::ErrorOp(std::vector<std::string> argsForOp):ReplyOp(13,"Error",0,argsForOp) {
 
 }
 
