@@ -15,8 +15,8 @@ class Operation{
 private:
     short _opCode;
     std::string _interfaceCommand;
-    std::vector<std::string> _arguments;
 protected:
+    std::vector<std::string> _arguments;
     Operation(short opcode, std::string interface);
     Operation(short opcode, std::string interface, std::vector<std::string> argsForOp);
 public:
@@ -97,26 +97,40 @@ public:
     MyCoursesOp(std::vector<std::string> argsForOp);
 };
 
-class AcknowledgementOp: public Operation{
+class ReplyOp: public Operation{
 private:
-    short _ackOf;
+    short _replyOf;
+protected:
+    ReplyOp(short opCod,std::string interface);
+    ReplyOp(short opCod,std::string interface,short replyOf);
+    ReplyOp(short opCod,std::string interface,short replyOf,std::vector<std::string> argsForOp);
+
+public:
+    ReplyOp();
+    virtual std::string replyToString()=0;
+    const ReplyOp& operator=(const ReplyOp& other); // Ass oprt
+    short getReplyOpOf() const;
+};
+
+class AcknowledgementOp: public ReplyOp{
 public:
     AcknowledgementOp();
     AcknowledgementOp(short ackOf);
     AcknowledgementOp(std::vector<std::string> argsForOp);
-    std::string ackToString();
+
+    std::string replyToString();
 
     short getAckOf() const;
 };
 
-class ErrorOp: public Operation{
-private:
-    short _errorOf;
+class ErrorOp: public ReplyOp{
 public:
     ErrorOp();
     ErrorOp(short errorOf);
     ErrorOp(std::vector<std::string> argsForOp);
-    std::string errorToString();
+
+    std::string replyToString();
+
     short getErrorOf() const;
 };
 

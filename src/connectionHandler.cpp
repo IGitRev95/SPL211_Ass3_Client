@@ -116,7 +116,7 @@ bool ConnectionHandler::sendOp(Operation &opToSend) {
     return false;
 }
 
-bool ConnectionHandler::getOp(Operation* opReceived) {
+bool ConnectionHandler::getOp(ReplyOp** opReceived) {
     char bytesBuff[1024];
     if(!buildBytesArray(bytesBuff))
         return false;

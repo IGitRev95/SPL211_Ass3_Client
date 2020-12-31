@@ -34,11 +34,11 @@ int main (int argc, char *argv[]) {
         // 2. Read a line (up to the newline character using the getline() buffered reader
         // 3. Read up to the null character
 //       /*
-        Operation* answer= nullptr;
+        ReplyOp* answer= nullptr;
         // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
         // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
         // TODO: Decode server reply to a valid string according to assignment definitions
-        if (!connectionHandler.getOp(answer)) { // getting answer string from server (bytes to string decoding included)
+        if (!connectionHandler.getOp(&answer)) { // getting answer string from server (bytes to string decoding included)
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;
         }

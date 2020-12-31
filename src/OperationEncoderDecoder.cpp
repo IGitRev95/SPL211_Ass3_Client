@@ -76,9 +76,9 @@ OpType OperationEncoderDecoder::getTypeOfString(const std::string& typo) {
 }
 
 int OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
-    int writeCurrentPos(0);
+//    int writeCurrentPos(0);
     shortToBytes(op.getOpCode(), bytes);
-    writeCurrentPos=2;
+    int writeCurrentPos(2);
     switch (op.getOpCode()) {
         case 1:
         case 2:
@@ -160,13 +160,13 @@ short OperationEncoderDecoder::stringToShort(const std::string& stringToConvert)
     }
 }
 
-bool OperationEncoderDecoder::decode(char *serverCommand,Operation* decodedOp) {//TODO:needs cleaning and default
+bool OperationEncoderDecoder::decode(char *serverCommand,ReplyOp** decodedOp) {//TODO:needs cleaning and default
     int readFromPoss(0);
     short commandOpcode=bytesToShort(serverCommand);
     readFromPoss=2;
 //    Operation* decodedOp= nullptr;
-    std::string args;
     switch (commandOpcode) { //TODO: usage of new be sure to free allocated memory
+
 /*//        case 1:
 //            decodedOp=new AdminRegOp();
 //            break;
@@ -241,11 +241,10 @@ bool OperationEncoderDecoder::decode(char *serverCommand,Operation* decodedOp) {
             bytestoShort[0]=serverCommand[readFromPoss];
             readFromPoss++;
             bytestoShort[1]=serverCommand[readFromPoss];
-            readFromPoss++;
+            //readFromPoss++;
             short ackOfOpCode = bytesToShort(bytestoShort);
-            decodedOp=new AcknowledgementOp(ackOfOpCode);
-            args+=(Operation::charArrayTostring(serverCommand,'\0',readFromPoss));
-            decodedOp->setArguments(args);
+            *decodedOp=new AcknowledgementOp (ackOfOpCode);
+            (*decodedOp)->setArguments(Operation::charArrayTostring(serverCommand,'\0',readFromPoss));
             return true;
         }
         case 13:
@@ -254,9 +253,9 @@ bool OperationEncoderDecoder::decode(char *serverCommand,Operation* decodedOp) {
             bytestoShort[0]=serverCommand[readFromPoss];
             readFromPoss++;
             bytestoShort[1]=serverCommand[readFromPoss];
-            readFromPoss++;
+            //readFromPoss++;
             short errorOfOpCode = bytesToShort(bytestoShort);
-            decodedOp=new ErrorOp(errorOfOpCode);
+            *decodedOp=new ErrorOp(errorOfOpCode);
             return true;
         }
     }

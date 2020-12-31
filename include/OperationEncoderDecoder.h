@@ -18,7 +18,7 @@ class OperationEncoderDecoder {
     //TODO: Add Exceptions about illegal input streams from user like non valid command include additional not needed extra arguments
 public:
     static Operation decode(std::string usrCommand);
-    static bool decode(char serverCommand[],Operation* decodedOp);
+    static bool decode(char serverCommand[],ReplyOp** decodedOp);
     static int encode(const Operation& op, char bytes[]); //Returns written length
     static short bytesToShort(char* bytesArr);
     static void shortToBytes(short num, char* bytesArr);

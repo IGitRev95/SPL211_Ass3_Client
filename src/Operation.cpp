@@ -30,9 +30,8 @@ std::string Operation::toString() { //Operation to string
     std::string opInLine;
     switch (_opCode) {
         case 12:
-            return ((AcknowledgementOp*)this)->ackToString();
         case 13:
-            return ((ErrorOp*)this)->errorToString();
+            return ((ReplyOp*)this)->replyToString();
     }
     opInLine+=(std::to_string(_opCode)+' ');
     opInLine+=getArgumentsAsString();
@@ -176,19 +175,19 @@ MyCoursesOp::MyCoursesOp(std::vector<std::string> argsForOp):Operation(11,"MYCOU
 
 }
 
-AcknowledgementOp::AcknowledgementOp():Operation(12,"ACK"),_ackOf(0) {
+AcknowledgementOp::AcknowledgementOp():ReplyOp(12,"ACK") {
 
 }
 
-AcknowledgementOp::AcknowledgementOp(std::vector<std::string> argsForOp):Operation(12,"ACK",argsForOp),_ackOf(0) {
+AcknowledgementOp::AcknowledgementOp(std::vector<std::string> argsForOp):ReplyOp(12,"ACK",0,argsForOp) {
 
 }
 
-AcknowledgementOp::AcknowledgementOp(short ackOf):Operation(12,"ACK"),_ackOf(ackOf) {
+AcknowledgementOp::AcknowledgementOp(short ackOf):ReplyOp(12,"ACK",ackOf) {
 
 }
-
-std::string AcknowledgementOp::ackToString() {
+//TODO
+std::string AcknowledgementOp::replyToString() {
     std::string output(this->getInterfaceCommand()+' '+std::to_string(getAckOf()));
     if(!this->getArguments().empty())
     {
@@ -198,26 +197,58 @@ std::string AcknowledgementOp::ackToString() {
 }
 
 short AcknowledgementOp::getAckOf() const {
-    return _ackOf;
+    return getReplyOpOf();
 }
 
-ErrorOp::ErrorOp():Operation(13,"Error"),_errorOf(0) {
+ErrorOp::ErrorOp():ReplyOp(13,"Error",0){
 
 }
 
-ErrorOp::ErrorOp(std::vector<std::string> argsForOp):Operation(13,"Error",argsForOp),_errorOf(0) {
+ErrorOp::ErrorOp(std::vector<std::string> argsForOp):ReplyOp(13,"Error",0,argsForOp) {
 
 }
 
 short ErrorOp::getErrorOf() const {
-    return _errorOf;
+    return getReplyOpOf();
 }
 
-ErrorOp::ErrorOp(short errorOf):Operation(13,"Error"),_errorOf(errorOf) {
+ErrorOp::ErrorOp(short errorOf):ReplyOp(13,"Error",errorOf){
 
 }
 
-std::string ErrorOp::errorToString() {
+std::string ErrorOp::replyToString() {
     std::string output(this->getInterfaceCommand()+' '+std::to_string(getErrorOf()));
     return output;
 }
+
+ReplyOp::ReplyOp(short opCod,std::string interface):Operation(opCod,interface),_replyOf(0) {
+
+}
+
+ReplyOp::ReplyOp(short opCod, std::string interface, short replyOf):Operation(opCod,interface),_replyOf(replyOf) {
+
+}
+
+const ReplyOp& ReplyOp::operator=(const ReplyOp &other) {
+    if(this!=&other) {
+        this->_replyOf = other.getReplyOpOf();
+        this->_arguments.clear();
+        this->setArguments(other.getArguments());
+    }
+    return *this;
+}
+
+short ReplyOp::getReplyOpOf() const {
+    return _replyOf;
+}
+
+ReplyOp::ReplyOp(short opCod, std::string interface, short replyOf, std::vector<std::string> argsForOp):Operation(opCod,interface,argsForOp),_replyOf(replyOf) {
+
+}
+
+ReplyOp::ReplyOp():Operation(0,"DefaultReply"),_replyOf(0) {
+
+}
+
+
+
