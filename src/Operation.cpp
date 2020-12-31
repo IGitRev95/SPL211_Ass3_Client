@@ -236,9 +236,6 @@ ReplyOp::ReplyOp(short opCod, std::string interface, short replyOf, std::vector<
 
 }
 
-ReplyOp::ReplyOp():Operation(0,"DefaultReply"),_replyOf(0) {
-
-}
 
 
 

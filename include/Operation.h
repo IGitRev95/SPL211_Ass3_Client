@@ -29,6 +29,7 @@ public:
     void setArguments(std::vector<std::string> argsForOp);
     static std::vector<std::string> splitString(const std::string toSplit,char delimiter);
     static std::string charArrayTostring(const char *charArrayToConvert, char delimiter, int poss_s);
+    virtual ~Operation()=default;
 };
 
 class AdminRegOp: public Operation{
@@ -106,7 +107,6 @@ protected:
     ReplyOp(short opCod,std::string interface,short replyOf,std::vector<std::string> argsForOp);
 
 public:
-    ReplyOp();
     virtual std::string replyToString()=0;
     virtual ~ReplyOp()=default;
 

@@ -10,6 +10,7 @@
 class Task {
 protected:
     virtual int run()=0;
+    virtual ~Task()=default;
 
 };
 
