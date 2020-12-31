@@ -108,6 +108,8 @@ protected:
 public:
     ReplyOp();
     virtual std::string replyToString()=0;
+    virtual ~ReplyOp()=default;
+
     const ReplyOp& operator=(const ReplyOp& other); // Ass oprt
     short getReplyOpOf() const;
 };
