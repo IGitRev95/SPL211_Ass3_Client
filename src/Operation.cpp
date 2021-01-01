@@ -68,7 +68,6 @@ void Operation::setArguments(std::vector<std::string> argsForOp) {
 }
 
 Operation::Operation(short opcode, std::string interface, std::vector<std::string> argsForOp):_opCode(opcode), _interfaceCommand(interface),_arguments(argsForOp){
-    this->setArguments(argsForOp);
 }
 
 const std::vector<std::string> &Operation::getArguments() const {
@@ -183,6 +182,7 @@ AcknowledgementOp::AcknowledgementOp(short ackOf):ReplyOp(12,"ACK",ackOf) {
 //TODO
 std::string AcknowledgementOp::replyToString() {
     std::string output(this->getInterfaceCommand()+' '+std::to_string(getAckOf()));
+    this->_arguments.erase(_arguments.begin());//cut 1st argument which is ack of
     if(!this->getArguments().empty())
     {
         output+=("\n"+this->getArgumentsAsString());
