@@ -17,8 +17,8 @@ std::string Operation::getInterfaceCommand() {
 }
 
 std::string Operation::getArgumentsAsString() { //return argument of operation as string
-    std::string argumentsLine("");
-    for (unsigned int i = 0; i < _arguments.size(); ++i) {
+    std::string argumentsLine;
+    for (unsigned int i = 0; i < _arguments.size(); ++i) { //chaining all arguments to one string separating with ' '
         argumentsLine+=(_arguments.at(i));
         argumentsLine+=(' ');
     }
@@ -30,7 +30,7 @@ std::string Operation::toString() { //Operation to string
     std::string opInLine;
     if(_opCode==12||_opCode==13)
         return ((ReplyOp*)this)->replyToString();
-
+    //For general printing
     opInLine+=(std::to_string(_opCode)+' ');
     opInLine+=getArgumentsAsString();
     return opInLine;
@@ -45,7 +45,7 @@ void Operation::setArguments(std::string argsForOp) {
             argsForOp = argsForOp.substr(i + 1);
             i++;
         }
-        std::vector<std::string> splitArgsForOp = Operation::splitString(argsForOp, ' ');
+        std::vector<std::string> splitArgsForOp = Operation::splitString(argsForOp, ' ');//separating the arguments from being in one string
         for (unsigned int j = 0; j < splitArgsForOp.size(); j++)
             _arguments.push_back(splitArgsForOp.at(j));
     }
@@ -55,10 +55,10 @@ std::vector<std::string> Operation::splitString(const std::string toSplit, char 
     std::vector<std::string> splitStringVector;
     unsigned long curpos=0;
     for ( unsigned long lastpos=0; lastpos < toSplit.length(); lastpos=curpos) {
-        curpos=toSplit.find_first_of(delimiter, lastpos);
-        splitStringVector.push_back(toSplit.substr(lastpos, curpos - lastpos));
-        curpos++;//to jump over the @delimiter before new cycle
-        if (curpos==0)
+        curpos=toSplit.find_first_of(delimiter, lastpos); //find the index of the next delimiter char
+        splitStringVector.push_back(toSplit.substr(lastpos, curpos - lastpos)); //add the argument sub stringed from the last position for 'cur-last' chars
+        curpos++; //jump over the @delimiter before new cycle
+        if (curpos==0) // curposs is 0 after looking for next delimiter index if there's non therefore loop should end
             break;
     }
     return splitStringVector;
@@ -78,7 +78,7 @@ const std::vector<std::string> &Operation::getArguments() const {
 
 std::string Operation::charArrayTostring(const char *charArrayToConvert, char delimiter, int poss_s) {
     std::string convertedDataString;
-    while (charArrayToConvert[poss_s] != delimiter)
+    while (charArrayToConvert[poss_s] != delimiter) //writing from starting point until reaching the delimiter
     {
         convertedDataString+=charArrayToConvert[poss_s];
         poss_s=poss_s+1;
@@ -181,11 +181,10 @@ AcknowledgementOp::AcknowledgementOp():ReplyOp(12,"ACK") {
 AcknowledgementOp::AcknowledgementOp(short ackOf):ReplyOp(12,"ACK",ackOf) {
 
 }
-//TODO
+
 std::string AcknowledgementOp::replyToString() {
     std::string output(this->getInterfaceCommand()+' '+std::to_string(getAckOf()));
-    //this->_arguments.erase(_arguments.begin());//cut 1st argument which is ack of
-    if(!this->getArguments().empty())
+    if(!this->getArguments().empty())//adding arguments if needed
     {
         output+=("\n"+this->getArgumentsAsString());
     }
@@ -232,10 +231,6 @@ const ReplyOp& ReplyOp::operator=(const ReplyOp &other) {
 
 short ReplyOp::getReplyOpOf() const {
     return _replyOf;
-}
-
-ReplyOp::ReplyOp(short opCod, std::string interface, short replyOf, std::vector<std::string> argsForOp):Operation(opCod,interface,argsForOp),_replyOf(replyOf) {
-
 }
 
 
