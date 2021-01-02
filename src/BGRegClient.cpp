@@ -22,8 +22,9 @@ int main (int argc, char *argv[]) {
     }
 
     std::atomic_bool terminate(false);
+    std::atomic_bool logedIn(false);
 
-    UserInputReader usrKeyboardInputs(connectionHandler,terminate); //User Input Handling Task
+    UserInputReader usrKeyboardInputs(connectionHandler,terminate,logedIn); //User Input Handling Task
     std::thread usrKeyboardInputsThread(&UserInputReader::run, &usrKeyboardInputs); //User Input Handling Task Thread
 
 
@@ -37,10 +38,20 @@ int main (int argc, char *argv[]) {
 
         std::cout << answer->toString() << std::endl;
 
-        if(answer->getOpCode()==12 && answer->getReplyOpOf()==4)
+        if(answer->getOpCode()==12)
         {
-            terminate=true;
-            usrKeyboardInputsThread.join();
+            switch (answer->getReplyOpOf()) {
+                case 3:
+                {
+                    logedIn=true;
+                }
+                case 4:
+                {
+                    terminate=true;
+                    usrKeyboardInputsThread.join();
+                }
+                default: break;
+            }
         }
         delete answer;
     }

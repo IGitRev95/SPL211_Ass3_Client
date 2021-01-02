@@ -4,7 +4,7 @@
 
 #include "../include/UserInputReader.h"
 
-UserInputReader::UserInputReader(ConnectionHandler &clientConnectionHandler,std::atomic_bool &terminate) : clientConnectionHandler(clientConnectionHandler),terminate(terminate) {}
+UserInputReader::UserInputReader(ConnectionHandler &clientConnectionHandler,std::atomic_bool &terminate,std::atomic_bool &logedIn) : clientConnectionHandler(clientConnectionHandler),terminate(terminate),logedIn(logedIn) {}
 
 int UserInputReader::run() {
     while (1)// TODO:check for terminate / interrupt configuration & solution
@@ -19,7 +19,7 @@ int UserInputReader::run() {
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;
         }
-        if(userCommand.getOpCode() == 4)
+        if(userCommand.getOpCode() == 4 && logedIn)
         {
             while (!terminate){std::this_thread::yield();}
             break;

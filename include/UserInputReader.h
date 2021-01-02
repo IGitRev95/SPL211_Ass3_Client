@@ -15,8 +15,9 @@ class UserInputReader: public Task {
 private:
     ConnectionHandler &clientConnectionHandler;
     std::atomic_bool &terminate;
+    std::atomic_bool &logedIn;
 public:
-    UserInputReader(ConnectionHandler &clientConnectionHandler,std::atomic_bool &terminate);
+    UserInputReader(ConnectionHandler &clientConnectionHandler,std::atomic_bool &terminate,std::atomic_bool &logedIn);
     int run();
 };
 
