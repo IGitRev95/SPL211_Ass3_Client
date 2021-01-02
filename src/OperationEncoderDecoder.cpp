@@ -41,10 +41,11 @@ Operation OperationEncoderDecoder::decode(std::string usrCommand) {
 */
         case NONVALIDCOMMAND:
         {
-            NonValidOperation nonValidOperation;
-            throw nonValidOperation;
+            break;
         }
     }
+    NonValidOperation nonValidOperation;
+    throw nonValidOperation;
 }
 
 OpType OperationEncoderDecoder::getTypeOfString(const std::string& typo) {
