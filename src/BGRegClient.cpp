@@ -44,11 +44,13 @@ int main (int argc, char *argv[]) {
                 case 3:
                 {
                     logedIn=true;
+                    break;
                 }
                 case 4:
                 {
                     terminate=true;
                     usrKeyboardInputsThread.join();
+                    break;
                 }
                 default: break;
             }
