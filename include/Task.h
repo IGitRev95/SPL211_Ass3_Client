@@ -7,6 +7,10 @@
 
 #include <thread>
 
+/**
+ * Runnable Interface Replacement
+ */
+
 class Task {
 protected:
     virtual int run()=0;

@@ -11,14 +11,25 @@
 #include "Operation.h"
 #include "OperationEncoderDecoder.h"
 
+/**
+ * This class is a task class which should be ran by a separate thread
+ * The objective of the class is getting user commands and sending them to the server
+ */
+
 class UserInputReader: public Task {
 private:
     ConnectionHandler &clientConnectionHandler;
     std::atomic_bool &terminate;
     std::atomic_bool &logedIn;
 public:
+    /**
+     * Constructor
+     * @param clientConnectionHandler - connection handler for network communication functionalities
+     * @param terminate - atomic bool which indicate termination
+     * @param logedIn - atomic bool which indicate that logging In has occurred
+     */
     UserInputReader(ConnectionHandler &clientConnectionHandler,std::atomic_bool &terminate,std::atomic_bool &logedIn);
-    int run();
+    int run(); ////the "main" method to run in the thread
 };
 
 

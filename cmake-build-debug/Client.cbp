@@ -155,9 +155,6 @@
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/OperationEncoderDecoder.cpp">
 			<Option target="BGRSclient"/>
 		</Unit>
-		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/Task.cpp">
-			<Option target="BGRSclient"/>
-		</Unit>
 		<Unit filename="/home/spl211/SPL-Ass/Ass3/CLNT/Client/src/UserInputReader.cpp">
 			<Option target="BGRSclient"/>
 		</Unit>

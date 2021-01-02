@@ -36,4 +36,4 @@ link_libraries("-pthread")
 #-----------------------------------------------------
 
 add_executable(EchoClient src/connectionHandler.cpp include/connectionHandler.h)
-add_executable(BGRSclient src/connectionHandler.cpp include/connectionHandler.h src/BGRegClient.cpp src/Task.cpp include/Task.h src/UserInputReader.cpp include/UserInputReader.h include/Operation.h src/Operation.cpp src/OperationEncoderDecoder.cpp include/OperationEncoderDecoder.h)
+add_executable(BGRSclient src/connectionHandler.cpp include/connectionHandler.h src/BGRegClient.cpp include/Task.h src/UserInputReader.cpp include/UserInputReader.h include/Operation.h src/Operation.cpp src/OperationEncoderDecoder.cpp include/OperationEncoderDecoder.h)
