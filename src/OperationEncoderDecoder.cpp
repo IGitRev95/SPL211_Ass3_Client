@@ -166,7 +166,7 @@ bool OperationEncoderDecoder::decode(char *serverCommand,ReplyOp** decodedOp) {/
         bytestoShort[0]=serverCommand[readFromPoss];
         readFromPoss++;
         bytestoShort[1]=serverCommand[readFromPoss];
-        //readFromPoss++;
+        readFromPoss++;
         short ackOfOpCode = bytesToShort(bytestoShort);
         *decodedOp=new AcknowledgementOp (ackOfOpCode);
         (*decodedOp)->setArguments(Operation::charArrayTostring(serverCommand,'\0',readFromPoss));

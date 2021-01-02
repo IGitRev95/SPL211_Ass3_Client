@@ -38,15 +38,17 @@ std::string Operation::toString() { //Operation to string
 
 void Operation::setArguments(std::string argsForOp) {
     int i(0);
-    while(argsForOp.at(i)==' ') //cutting firsts ' ' if are there by mistake
-    {
-        argsForOp=argsForOp.substr(i+1);
-        i++;
-    }
-    std::vector<std::string> splitArgsForOp=Operation::splitString(argsForOp,' ');
-    for(unsigned int j=0;j<splitArgsForOp.size();j++)
-        _arguments.push_back(splitArgsForOp.at(j));
+    if(!argsForOp.empty()) {
 
+        while (argsForOp.at(i) == ' ') //cutting firsts ' ' if are there by mistake
+        {
+            argsForOp = argsForOp.substr(i + 1);
+            i++;
+        }
+        std::vector<std::string> splitArgsForOp = Operation::splitString(argsForOp, ' ');
+        for (unsigned int j = 0; j < splitArgsForOp.size(); j++)
+            _arguments.push_back(splitArgsForOp.at(j));
+    }
 }
 
 std::vector<std::string> Operation::splitString(const std::string toSplit, char delimiter) {
@@ -182,7 +184,7 @@ AcknowledgementOp::AcknowledgementOp(short ackOf):ReplyOp(12,"ACK",ackOf) {
 //TODO
 std::string AcknowledgementOp::replyToString() {
     std::string output(this->getInterfaceCommand()+' '+std::to_string(getAckOf()));
-    this->_arguments.erase(_arguments.begin());//cut 1st argument which is ack of
+    //this->_arguments.erase(_arguments.begin());//cut 1st argument which is ack of
     if(!this->getArguments().empty())
     {
         output+=("\n"+this->getArgumentsAsString());
