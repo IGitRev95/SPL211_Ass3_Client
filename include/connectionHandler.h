@@ -16,33 +16,45 @@ private:
 	tcp::socket socket_; 
  
 public:
-    ConnectionHandler(std::string host, short port); //TODO:DO NOT TOUCH!!!
-    virtual ~ConnectionHandler(); //TODO:DO NOT TOUCH!!!
+    ConnectionHandler(std::string host, short port); //// NOT CHANGED
+    virtual ~ConnectionHandler(); //// NOT CHANGED
  
     // Connect to the remote machine
-    bool connect(); //TODO:DO NOT TOUCH!!!
+    bool connect(); //// NOT CHANGED
  
     // Read a fixed number of bytes from the server - blocking.
     // Returns false in case the connection is closed before bytesToRead bytes can be read.
-    bool getBytes(char bytes[], unsigned int bytesToRead); //TODO:DO NOT TOUCH!!!
+    bool getBytes(char bytes[], unsigned int bytesToRead); //// NOT CHANGED
  
 	// Send a fixed number of bytes from the client - blocking.
     // Returns false in case the connection is closed before all the data is sent.
-    bool sendBytes(const char bytes[], int bytesToWrite); //TODO:DO NOT TOUCH!!!
+    bool sendBytes(const char bytes[], int bytesToWrite); //// NOT CHANGED
 
     // Close down the connection properly.
-    void close(); //TODO:DO NOT TOUCH!!!
+    void close(); //// NOT CHANGED
 
     //--------------------------------self addition to connection handler
 
-    //sending Operation to server
-    bool sendOp(Operation& opToSend); //TODO:NOT FULLY TESTED
+    /**
+     * sending Operation to server
+     * @param opToSend
+     * @return - successfulness
+     */
+    bool sendOp(Operation& opToSend);
 
-    //setting opReceived with the decoded operation received from server
-    bool getOp(ReplyOp** opReceived); //TODO:NOT TESTED
+    /**
+     * setting opReceived with the decoded operation received from server
+     * @param opReceived
+     * @return - successfulness
+     */
+    bool getOp(ReplyOp** opReceived);
 
-    //gathering all the necessary bytes for operation decoding
-    bool buildBytesArray(char bytes[]); //TODO:NOT TESTED
-}; //class ConnectionHandler
+    /**
+     * Gathering all the necessary bytes for operation decoding
+     * @param bytes - char array to stored the socket read bytes
+     * @return - successfulness
+     */
+    bool buildBytesArray(char bytes[]);
+};
  
 #endif

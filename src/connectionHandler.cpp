@@ -73,28 +73,26 @@ void ConnectionHandler::close() {
 }
 
 bool ConnectionHandler::sendOp(Operation &opToSend) {
-    char bytesBuff[1024];
-    int amountOfBytesToWrite=OperationEncoderDecoder::encode(opToSend, bytesBuff);
+    char bytesBuff[1024]; // bytes array to encode to
+    int amountOfBytesToWrite=OperationEncoderDecoder::encode(opToSend, bytesBuff); //encode Operation to the bytes Array
     if(amountOfBytesToWrite!=-1)
     {
-        return sendBytes(bytesBuff,amountOfBytesToWrite);
+        return sendBytes(bytesBuff,amountOfBytesToWrite); //write the encoded operation to the socket for sending
     }
     return false;
 }
 
 bool ConnectionHandler::getOp(ReplyOp** opReceived) {
-    char bytesBuff[1024];
-    if(!buildBytesArray(bytesBuff))
+    char bytesBuff[1024]; // bytes array for storing gathered received message bytes
+    if(!buildBytesArray(bytesBuff)) // gather entire message bites
         return false;
-    if(OperationEncoderDecoder::decode(bytesBuff,opReceived))
+    if(OperationEncoderDecoder::decode(bytesBuff,opReceived)) // decode operation from bytes array
         return true;
     return false;
 }
 
 bool ConnectionHandler::buildBytesArray(char bytes[]) {
     char ch;
-    // Stop when we encounter the null character.
-    // Notice that the null character is not appended to the frame string.
     int readingIndex=0;
     try {
         //reading opCode + MessageOpCode
