@@ -6,11 +6,11 @@ all: BGRSclient
 
 #add more dependencies files of the main (practicly every thing else)
 
-BGRSclient: bin/connectionHandler.o bin/BGRegClient.o bin/Task.o  bin/UserInputReader.o bin/Operation.o bin/OperationEncoderDecoder.o
+BGRSclient: bin/connectionHandler.o bin/BGRegClient.o bin/UserInputReader.o bin/Operation.o bin/OperationEncoderDecoder.o
 	@echo 'Building target: BGRSclient'
 	@echo 'Invoking: C++ Linker'
 #Building and linking (add all object (.o) files)    
-	$(CC) -o bin/BGRSclient bin/connectionHandler.o bin/BGRegClient.o bin/Task.o  bin/UserInputReader.o bin/Operation.o bin/OperationEncoderDecoder.o $(LDFLAGS) #add dependencies .o files for linking !Before $(LDFLAGS)
+	$(CC) -o bin/BGRSclient bin/connectionHandler.o bin/BGRegClient.o bin/UserInputReader.o bin/Operation.o bin/OperationEncoderDecoder.o $(LDFLAGS) #add dependencies .o files for linking !Before $(LDFLAGS)
 	@echo 'Finishing building target: BGRSclient'
 	@echo ' '
 
@@ -21,10 +21,6 @@ bin/connectionHandler.o: src/connectionHandler.cpp
 bin/BGRegClient.o: src/BGRegClient.cpp
 	$(CC) $(CFLAGS) -o bin/BGRegClient.o src/BGRegClient.cpp
 	@echo 'Building .o from BGRegClient'
-
-bin/Task.o: src/Task.cpp
-	$(CC) $(CFLAGS) -o bin/Task.o src/Task.cpp
-	@echo 'Building .o from Task'
 
 bin/UserInputReader.o: src/UserInputReader.cpp
 	$(CC) $(CFLAGS) -o bin/UserInputReader.o src/UserInputReader.cpp
