@@ -20,15 +20,15 @@ class UserInputReader: public Task {
 private:
     ConnectionHandler &clientConnectionHandler;
     std::atomic_bool &terminate;
-    std::atomic_bool &logedIn;
+    std::atomic_bool &loggedIn;
 public:
     /**
      * Constructor
      * @param clientConnectionHandler - connection handler for network communication functionalities
      * @param terminate - atomic bool which indicate termination
-     * @param logedIn - atomic bool which indicate that logging In has occurred
+     * @param loggedIn - atomic bool which indicate that logging In has occurred
      */
-    UserInputReader(ConnectionHandler &clientConnectionHandler,std::atomic_bool &terminate,std::atomic_bool &logedIn);
+    UserInputReader(ConnectionHandler &clientConnectionHandler,std::atomic_bool &terminate,std::atomic_bool &loggedIn);
     int run(); ////the "main" method to run in the thread
 };
 

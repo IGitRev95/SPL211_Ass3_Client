@@ -21,41 +21,39 @@ int main (int argc, char *argv[]) {
         return 1;
     }
 
-    std::atomic_bool terminate(false);
-    std::atomic_bool logedIn(false);
+    std::atomic_bool terminate(false); // Indicator of termination for user keyboard listening thread
+    std::atomic_bool loggedIn(false); // Indicator of LoggedIn status
 
-    UserInputReader usrKeyboardInputs(connectionHandler,terminate,logedIn); //User Input Handling Task
+    UserInputReader usrKeyboardInputs(connectionHandler, terminate, loggedIn); //User Input Handling Task
     std::thread usrKeyboardInputsThread(&UserInputReader::run, &usrKeyboardInputs); //User Input Handling Task Thread
 
-
-    // TODO:check for terminate / interrupt configuration & solution
     while (!terminate) {
-        ReplyOp* answer= nullptr;
-        if (!connectionHandler.getOp(&answer)) { // getting answer string from server (bytes to Operation decoding included)
+        ReplyOp* answer= nullptr; //current answer holder
+        if (!connectionHandler.getOp(&answer)) { // getting answer operation from server (bytes to Operation decoding included)
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;
         }
 
-        std::cout << answer->toString() << std::endl;
+        std::cout << answer->toString() << std::endl; //printing to user end
 
-        if(answer->getOpCode()==12)
+        if(answer->getOpCode()==12) //ACK which trigger extra consequences
         {
             switch (answer->getReplyOpOf()) {
-                case 3:
+                case 3: // ACK of logging in
                 {
-                    logedIn=true;
+                    loggedIn=true;
                     break;
                 }
-                case 4:
+                case 4: // ACK of logging out
                 {
-                    terminate=true;
-                    usrKeyboardInputsThread.join();
+                    terminate=true; //signaling other thread to terminate
+                    usrKeyboardInputsThread.join(); //waiting for it to terminate
                     break;
                 }
                 default: break;
             }
         }
-        delete answer;
+        delete answer; //free the answer holder which allocated on the heap
     }
     return 0;
 }

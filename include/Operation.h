@@ -9,7 +9,6 @@
 #include <string>
 #include <vector>
 #include <boost/lexical_cast.hpp>
-#include <boost/scoped_array.hpp>
 
 /**
  * command class type

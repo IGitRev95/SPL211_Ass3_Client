@@ -8,9 +8,9 @@
 
 Operation OperationEncoderDecoder::decode(std::string usrCommand) {
     std::vector<std::string> commandParsedParts= Operation::splitString(std::move(usrCommand),' ');
-    std::string commandName(commandParsedParts.at(0));//cutting interface
-    commandParsedParts.erase(commandParsedParts.begin());
-    switch (getTypeOfString(commandName)) {
+    std::string commandName(commandParsedParts.at(0));//get interface command
+    commandParsedParts.erase(commandParsedParts.begin());//cutting interface
+    switch (getTypeOfString(commandName)) { //creating correct type of operation with given arguments
         case ADMINREG:
             return AdminRegOp(commandParsedParts);
         case STUDENTREG:
@@ -39,6 +39,11 @@ Operation OperationEncoderDecoder::decode(std::string usrCommand) {
         case Error:
             return ErrorOp(commandParsedParts);
 */
+        case NONVALIDCOMMAND:
+        {
+            NonValidOperation nonValidOperation;
+            throw nonValidOperation;
+        }
     }
 }
 
@@ -71,23 +76,24 @@ OpType OperationEncoderDecoder::getTypeOfString(const std::string& typo) {
     if (typo=="Error")
         return Error;
 */
-    // TODO throw exception in case of non valid command + delete returnVVV
-    return STUDENTREG;
+    return NONVALIDCOMMAND; //type of non valid command
 }
 
 int OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
-//    int writeCurrentPos(0);
-    shortToBytes(op.getOpCode(), bytes);
-    int writeCurrentPos(2);
+    int writeCurrentPos(0);//writing position pointer
+    shortToBytes(op.getOpCode(), bytes); //encoding opCode to the bytes array
+    writeCurrentPos=2; //wrote 2 bytes of opCode
     switch (op.getOpCode()) {
-        case 1:
-        case 2:
-        case 3:
-        {
+        case 1: //admin reg
+        case 2: //student reg
+        case 3: //login
+        {   //User and Password format messages
+            //username encoding
             stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
             writeCurrentPos=writeCurrentPos+(int)op.getArguments().at(0).length();
             bytes[writeCurrentPos]='\0';
             writeCurrentPos++;
+            //password encoding
             stringToCharArray(op.getArguments().at(1),bytes,writeCurrentPos);
             writeCurrentPos=writeCurrentPos+(int)op.getArguments().at(1).length();
             bytes[writeCurrentPos]='\0';
@@ -95,16 +101,19 @@ int OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
             return writeCurrentPos;
         }
 
-        case 4:
-        case 11:
+        case 4: //logout
+        case 11: //my courses
+        {   // no extra arguments format messages
             return writeCurrentPos;
+        }
 
-        case 5:
-        case 6:
-        case 7:
-        case 9:
-        case 10:
-        {
+        case 5: //course reg
+        case 6: //Kdam check
+        case 7: //course stat
+        case 9: //is reg
+        case 10: //course un reg
+        {   // course num argument format messages
+            //encoding number to short
             short num=stringToShort(op.getArguments().at(0));
             if(num==-1)
                 break;
@@ -117,8 +126,9 @@ int OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
             return writeCurrentPos;
         }
 
-        case 8:
-        {
+        case 8: //student stat
+        {   // student user name argument format messages
+            // student user name string encoding
             stringToCharArray(op.getArguments().at(0),bytes,writeCurrentPos);//return curr pos of writing
             writeCurrentPos=writeCurrentPos+(int)op.getArguments().at(0).length();
             bytes[writeCurrentPos]='\0';
@@ -140,15 +150,15 @@ void OperationEncoderDecoder::shortToBytes(short num, char *bytesArr) {
     bytesArr[1] = (num & 0xFF);
 }
 
-void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr,int arrayWritefromPos) {
-    for(unsigned int i=0;i<stringToConvert.length();i++){
-        bytesArr[arrayWritefromPos + i]=stringToConvert.at(i);
+void OperationEncoderDecoder::stringToCharArray(std::string stringToConvert, char *bytesArr,int arrayWriteFromPos) {
+    for(unsigned int i=0 ; i<stringToConvert.length() ; i++){
+        bytesArr[arrayWriteFromPos + i]=stringToConvert.at(i);
     }
 }
 
 short OperationEncoderDecoder::stringToShort(const std::string& stringToConvert) {
     try{
-        return boost::lexical_cast<short>(stringToConvert);
+        return boost::lexical_cast<short>(stringToConvert); //converting short to string
     }
     catch (std::exception& e) {
         std::cout<<e.what()<<std::endl;
@@ -156,32 +166,36 @@ short OperationEncoderDecoder::stringToShort(const std::string& stringToConvert)
     }
 }
 
-bool OperationEncoderDecoder::decode(char *serverCommand,ReplyOp** decodedOp) {//TODO:needs cleaning and default
-    int readFromPoss(0);
-    short commandOpcode=bytesToShort(serverCommand);
-    readFromPoss=2;
-    if(commandOpcode==12)
-    {
+bool OperationEncoderDecoder::decode(char *serverCommand,ReplyOp** decodedOp) {
+    int readFromPoss(0); //reading position index
+    short commandOpcode=bytesToShort(serverCommand);//getting opCode
+    readFromPoss=2; //moving reading pointer
+    if(commandOpcode==12) //ACK op
+    {   //decoding message opCode
         char bytestoShort[2];
         bytestoShort[0]=serverCommand[readFromPoss];
         readFromPoss++;
         bytestoShort[1]=serverCommand[readFromPoss];
         readFromPoss++;
         short ackOfOpCode = bytesToShort(bytestoShort);
-        *decodedOp=new AcknowledgementOp (ackOfOpCode);
-        (*decodedOp)->setArguments(Operation::charArrayTostring(serverCommand,'\0',readFromPoss));
+        *decodedOp=new AcknowledgementOp (ackOfOpCode); //creating Operation object
+        (*decodedOp)->setArguments(Operation::charArrayTostring( serverCommand,'\0', readFromPoss) );
         return true;
     }
-    if(commandOpcode==13)
-    {
+    if(commandOpcode==13) //Error op
+    {   //decoding message opCode
         char bytestoShort[2];
         bytestoShort[0]=serverCommand[readFromPoss];
         readFromPoss++;
         bytestoShort[1]=serverCommand[readFromPoss];
         //readFromPoss++;
         short errorOfOpCode = bytesToShort(bytestoShort);
-        *decodedOp=new ErrorOp(errorOfOpCode);
+        *decodedOp=new ErrorOp(errorOfOpCode); //creating Operation object
         return true;
     }
     return false;
+}
+
+const char *NonValidOperation::what() const noexcept {
+    return _errorCase.c_str(); //exception output string
 }
