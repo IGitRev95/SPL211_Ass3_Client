@@ -4,10 +4,9 @@
 
 #include "../include/OperationEncoderDecoder.h"
 
-#include <utility>
 
-Operation OperationEncoderDecoder::decode(std::string usrCommand) {
-    std::vector<std::string> commandParsedParts= Operation::splitString(std::move(usrCommand),' ');
+Operation OperationEncoderDecoder::decode(const std::string& usrCommand) {
+    std::vector<std::string> commandParsedParts= Operation::splitString(usrCommand,' ');
     std::string commandName(commandParsedParts.at(0));//get interface command
     commandParsedParts.erase(commandParsedParts.begin());//cutting interface
     switch (getTypeOfString(commandName)) { //creating correct type of operation with given arguments
@@ -140,8 +139,8 @@ int OperationEncoderDecoder::encode(const Operation& op,  char *bytes) {
     return -1;
 }
 
-short OperationEncoderDecoder::bytesToShort(char *bytesArr) {
-    short result = (short)((bytesArr[0] & 0xff) << 8);
+short OperationEncoderDecoder::bytesToShort(const char *bytesArr) {
+    auto result = (short)((bytesArr[0] & 0xff) << 8);
     result += (short)(bytesArr[1] & 0xff);
     return result;
 }

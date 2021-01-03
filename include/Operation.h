@@ -35,7 +35,6 @@ public:
     const std::vector<std::string> &getArguments() const;
     //Setters
     void setArguments(std::string argsForOp);//gets the op arguments as string and splits them by the ' 'chat to the string arguments vector
-    void setArguments(std::vector<std::string> argsForOp);
     /**
      * receives a string toSplit and a char delimiter and split the string to a vector of strings
      * where the splitting is defend by the delimiter char.
@@ -43,7 +42,7 @@ public:
      * @param delimiter
      * @return
      */
-    static std::vector<std::string> splitString(const std::string toSplit,char delimiter);
+    static std::vector<std::string> splitString(const std::string& toSplit,char delimiter);
     /**
      * returning a string which constructed from the charArrayToConvert
      * starting from index poss_s and stopping by the delimiter char.
@@ -139,7 +138,6 @@ public:
     virtual std::string replyToString()=0;
     virtual ~ReplyOp()=default;
 
-    const ReplyOp& operator=(const ReplyOp& other); // Ass operator - for safety
     short getReplyOpOf() const; // Getter
 };
 

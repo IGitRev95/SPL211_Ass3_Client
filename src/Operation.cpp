@@ -4,7 +4,9 @@
 
 #include "../include/Operation.h"
 
-Operation::Operation(short opcode, std::string interface): _opCode(opcode), _interfaceCommand(interface),_arguments(){
+#include <utility>
+
+Operation::Operation(short opcode, std::string interface): _opCode(opcode), _interfaceCommand(std::move(interface)),_arguments(){
 
 }
 
@@ -18,8 +20,8 @@ std::string Operation::getInterfaceCommand() {
 
 std::string Operation::getArgumentsAsString() { //return argument of operation as string
     std::string argumentsLine;
-    for (unsigned int i = 0; i < _arguments.size(); ++i) { //chaining all arguments to one string separating with ' '
-        argumentsLine+=(_arguments.at(i));
+    for (auto & _argument : _arguments) { //chaining all arguments to one string separating with ' '
+        argumentsLine+=_argument;
         argumentsLine+=(' ');
     }
     argumentsLine.resize(argumentsLine.size()-1); //cutting last ' '
@@ -46,14 +48,14 @@ void Operation::setArguments(std::string argsForOp) {
             i++;
         }
         std::vector<std::string> splitArgsForOp = Operation::splitString(argsForOp, ' ');//separating the arguments from being in one string
-        for (unsigned int j = 0; j < splitArgsForOp.size(); j++)
-            _arguments.push_back(splitArgsForOp.at(j));
+        for (auto & j : splitArgsForOp)
+            _arguments.push_back(j);
     }
 }
 
-std::vector<std::string> Operation::splitString(const std::string toSplit, char delimiter) {
+std::vector<std::string> Operation::splitString(const std::string& toSplit, char delimiter) {
     std::vector<std::string> splitStringVector;
-    unsigned long curpos=0;
+    unsigned long curpos;
     for ( unsigned long lastpos=0; lastpos < toSplit.length(); lastpos=curpos) {
         curpos=toSplit.find_first_of(delimiter, lastpos); //find the index of the next delimiter char
         splitStringVector.push_back(toSplit.substr(lastpos, curpos - lastpos)); //add the argument sub stringed from the last position for 'cur-last' chars
@@ -64,12 +66,7 @@ std::vector<std::string> Operation::splitString(const std::string toSplit, char 
     return splitStringVector;
 }
 
-void Operation::setArguments(std::vector<std::string> argsForOp) {
-    for(unsigned int j=0;j<argsForOp.size();j++)
-        _arguments.push_back(argsForOp.at(j));
-}
-
-Operation::Operation(short opcode, std::string interface, std::vector<std::string> argsForOp):_opCode(opcode), _interfaceCommand(interface),_arguments(argsForOp){
+Operation::Operation(short opcode, std::string interface, std::vector<std::string> argsForOp):_opCode(opcode), _interfaceCommand(std::move(interface)),_arguments(std::move(argsForOp)){
 }
 
 const std::vector<std::string> &Operation::getArguments() const {
@@ -90,7 +87,7 @@ AdminRegOp::AdminRegOp():Operation(1,"ADMINREG") {
 
 }
 
-AdminRegOp::AdminRegOp(std::vector<std::string> argsForOp):Operation(1,"ADMINREG",argsForOp) {
+AdminRegOp::AdminRegOp(std::vector<std::string> argsForOp):Operation(1,"ADMINREG",std::move(argsForOp)) {
 
 }
 
@@ -98,7 +95,7 @@ StudentRegOp::StudentRegOp():Operation(2,"STUDENTREG") {
 
 }
 
-StudentRegOp::StudentRegOp(std::vector<std::string> argsForOp):Operation(2,"STUDENTREG",argsForOp) {
+StudentRegOp::StudentRegOp(std::vector<std::string> argsForOp):Operation(2,"STUDENTREG",std::move(argsForOp)) {
 
 }
 
@@ -106,7 +103,7 @@ LoginReqOp::LoginReqOp():Operation(3,"LOGIN") {
 
 }
 
-LoginReqOp::LoginReqOp(std::vector<std::string> argsForOp):Operation(3,"LOGIN",argsForOp) {
+LoginReqOp::LoginReqOp(std::vector<std::string> argsForOp):Operation(3,"LOGIN",std::move(argsForOp)) {
 
 }
 
@@ -114,7 +111,7 @@ LogoutReqOp::LogoutReqOp():Operation(4,"LOGOUT") {
 
 }
 
-LogoutReqOp::LogoutReqOp(std::vector<std::string> argsForOp):Operation(4,"LOGOUT",argsForOp) {
+LogoutReqOp::LogoutReqOp(std::vector<std::string> argsForOp):Operation(4,"LOGOUT",std::move(argsForOp)) {
 
 }
 
@@ -122,7 +119,7 @@ CourseRegOp::CourseRegOp():Operation(5,"COURSEREG") {
 
 }
 
-CourseRegOp::CourseRegOp(std::vector<std::string> argsForOp):Operation(5,"COURSEREG",argsForOp) {
+CourseRegOp::CourseRegOp(std::vector<std::string> argsForOp):Operation(5,"COURSEREG",std::move(argsForOp)) {
 
 }
 
@@ -130,7 +127,7 @@ KdamCourseCheckOp::KdamCourseCheckOp():Operation(6,"KDAMCHECK") {
 
 }
 
-KdamCourseCheckOp::KdamCourseCheckOp(std::vector<std::string> argsForOp):Operation(6,"KDAMCHECK",argsForOp) {
+KdamCourseCheckOp::KdamCourseCheckOp(std::vector<std::string> argsForOp):Operation(6,"KDAMCHECK",std::move(argsForOp)) {
 
 }
 
@@ -138,7 +135,7 @@ PrintCourseStatOp::PrintCourseStatOp():Operation(7,"COURSESTAT") {
 
 }
 
-PrintCourseStatOp::PrintCourseStatOp(std::vector<std::string> argsForOp):Operation(7,"COURSESTAT",argsForOp) {
+PrintCourseStatOp::PrintCourseStatOp(std::vector<std::string> argsForOp):Operation(7,"COURSESTAT",std::move(argsForOp)) {
 
 }
 
@@ -146,7 +143,7 @@ PrintStudentStatOp::PrintStudentStatOp():Operation(8,"STUDENTSTAT") {
 
 }
 
-PrintStudentStatOp::PrintStudentStatOp(std::vector<std::string> argsForOp):Operation(8,"STUDENTSTAT",argsForOp) {
+PrintStudentStatOp::PrintStudentStatOp(std::vector<std::string> argsForOp):Operation(8,"STUDENTSTAT",std::move(argsForOp)) {
 
 }
 
@@ -154,7 +151,7 @@ IsRegOp::IsRegOp():Operation(9,"ISREGISTERED") {
 
 }
 
-IsRegOp::IsRegOp(std::vector<std::string> argsForOp):Operation(9,"ISREGISTERED",argsForOp) {
+IsRegOp::IsRegOp(std::vector<std::string> argsForOp):Operation(9,"ISREGISTERED",std::move(argsForOp)) {
 
 }
 
@@ -162,7 +159,7 @@ CourseUnRegOp::CourseUnRegOp():Operation(10,"UNREGISTER") {
 
 }
 
-CourseUnRegOp::CourseUnRegOp(std::vector<std::string> argsForOp):Operation(10,"UNREGISTER",argsForOp) {
+CourseUnRegOp::CourseUnRegOp(std::vector<std::string> argsForOp):Operation(10,"UNREGISTER",std::move(argsForOp)) {
 
 }
 
@@ -170,7 +167,7 @@ MyCoursesOp::MyCoursesOp():Operation(11,"MYCOURSES") {
 
 }
 
-MyCoursesOp::MyCoursesOp(std::vector<std::string> argsForOp):Operation(11,"MYCOURSES",argsForOp) {
+MyCoursesOp::MyCoursesOp(std::vector<std::string> argsForOp):Operation(11,"MYCOURSES",std::move(argsForOp)) {
 
 }
 
@@ -212,21 +209,12 @@ std::string ErrorOp::replyToString() {
     return output;
 }
 
-ReplyOp::ReplyOp(short opCod,std::string interface):Operation(opCod,interface),_replyOf(0) {
+ReplyOp::ReplyOp(short opCod,std::string interface):Operation(opCod,std::move(interface)),_replyOf(0) {
 
 }
 
-ReplyOp::ReplyOp(short opCod, std::string interface, short replyOf):Operation(opCod,interface),_replyOf(replyOf) {
+ReplyOp::ReplyOp(short opCod, std::string interface, short replyOf):Operation(opCod,std::move(interface)),_replyOf(replyOf) {
 
-}
-
-const ReplyOp& ReplyOp::operator=(const ReplyOp &other) {
-    if(this!=&other) {
-        this->_replyOf = other.getReplyOpOf();
-        this->_arguments.clear();
-        this->setArguments(other.getArguments());
-    }
-    return *this;
 }
 
 short ReplyOp::getReplyOpOf() const {

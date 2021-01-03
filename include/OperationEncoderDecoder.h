@@ -19,11 +19,11 @@ enum OpType
 class OperationEncoderDecoder {
     //TODO: Add Exceptions about illegal input streams from user like non valid command include additional not needed extra arguments
 public:
-    static Operation decode(std::string usrCommand); //making an operation object from user command input string
+    static Operation decode(const std::string& usrCommand); //making an operation object from user command input string
     static bool decode(char serverCommand[],ReplyOp** decodedOp); //setting the pointer to an operation object decoded from (bytes)char array
     static int encode(const Operation& op, char bytes[]); //Returns written length and writing operation to the bytes array
 
-    static short bytesToShort(char* bytesArr);
+    static short bytesToShort(const char* bytesArr);
     static void shortToBytes(short num, char* bytesArr);
 
 private:
