@@ -195,7 +195,7 @@ short AcknowledgementOp::getAckOf() const {
     return getReplyOpOf();
 }
 
-ErrorOp::ErrorOp():ReplyOp(13,"Error",0){
+ErrorOp::ErrorOp():ReplyOp(13,"ERROR",0){
 
 }
 
@@ -203,7 +203,7 @@ short ErrorOp::getErrorOf() const {
     return getReplyOpOf();
 }
 
-ErrorOp::ErrorOp(short errorOf):ReplyOp(13,"Error",errorOf){
+ErrorOp::ErrorOp(short errorOf):ReplyOp(13,"ERROR",errorOf){
 
 }
 
